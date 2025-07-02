@@ -3,6 +3,7 @@ package com.teststore.hooks;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
+import com.teststore.config.Config;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
@@ -16,7 +17,8 @@ public class Hooks {
     @Before
     public void setup(Scenario scenario) {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(true));
-        Configuration.browser = "chrome";
+        Configuration.browser = Config.getBrowser();
+        Configuration.timeout = Long.parseLong(Config.getTimeOut());
         Configuration.headless = false; // Можно включить для CI
         Configuration.timeout = 10000;
     }

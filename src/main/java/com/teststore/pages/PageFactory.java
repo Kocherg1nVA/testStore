@@ -9,6 +9,7 @@ public class PageFactory {
 
     static {
         registerPage("home", HomePage.class);
+        registerPage("login", LoginPage.class);
         //TODO добавить остальные страницы
     }
 

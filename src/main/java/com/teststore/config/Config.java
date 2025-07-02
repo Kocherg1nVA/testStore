@@ -22,4 +22,8 @@ public class Config {
     public static String getBrowser() {
         return PROPERTIES.getProperty("browser");
     }
+
+    public static String getTimeOut() {
+        return PROPERTIES.getProperty("timeout");
+    }
 }
