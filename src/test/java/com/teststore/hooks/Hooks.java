@@ -20,7 +20,7 @@ public class Hooks {
         Configuration.browser = Config.getBrowser();
         Configuration.timeout = Long.parseLong(Config.getTimeOut());
         Configuration.headless = false; // Можно включить для CI
-        Configuration.timeout = 10000;
+//        Configuration.baseUrl = Config.getBaseUrl();
     }
 
     @After

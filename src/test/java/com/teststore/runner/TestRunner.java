@@ -6,7 +6,7 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = "src/test/features",
+        features = "src/test/resources/features",
         glue = {
                 "com.teststore.steps",
                 "com.teststore.hooks"
@@ -14,7 +14,7 @@ import org.junit.runner.RunWith;
         plugin = {
                 "pretty",
                 "html:target/cucumber-reports.html",
-                "json:target/cucmber.json",
+                "json:target/cucumber.json",
                 "io.qameta.allure.cucumber6jvm.AllureCucumber6Jvm"
         },
 //        tags = "test",

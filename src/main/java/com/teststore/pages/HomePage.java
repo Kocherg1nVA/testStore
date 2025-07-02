@@ -1,9 +1,7 @@
 package com.teststore.pages;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import com.teststore.config.Config;
 import org.openqa.selenium.support.FindBy;
 
 public class HomePage extends AbstractPage {
@@ -40,10 +38,5 @@ public class HomePage extends AbstractPage {
     public void switchToPage() {
         slider.shouldBe(Condition.visible);
         promoSection.shouldBe(Condition.visible);
-    }
-
-    public void open() {
-        Selenide.open(Config.getBaseUrl());
-        switchToPage();
     }
 }
