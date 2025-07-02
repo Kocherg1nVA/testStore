@@ -1,0 +1,25 @@
+package com.teststore.config;
+
+import java.io.IOException;
+import java.util.Properties;
+
+public class Config {
+    private static final Properties PROPERTIES = new Properties();
+
+    static {
+        try {
+            PROPERTIES.load(Config.class.getClassLoader()
+                    .getResourceAsStream("config.properties"));
+        } catch (IOException e) {
+            throw new RuntimeException("Ошибка при загрузке конфигурации из файла config.properties", e);
+        }
+    }
+
+    public static String getBaseUrl() {
+        return PROPERTIES.getProperty("base.url");
+    }
+
+    public static String getBrowser() {
+        return PROPERTIES.getProperty("browser");
+    }
+}
