@@ -10,6 +10,18 @@ public class HomePage extends AbstractPage {
     public SelenideElement buttonLoginOrRegister;
 
     @NameOfElement("Specials button (header)")
-    @FindBy(xpath = "//li[@data-id='menu_specials' and @class='dropdown']//span[@class='menu_text' and contains(text(),'Specials')]")
+    @FindBy(xpath = "//li[@class='dropdown']//span[@class='menu_text' and contains(text(),'Specials')]")
     public SelenideElement buttonSpecials;
+
+    @NameOfElement("Account button (header)")
+    @FindBy(xpath = "//li[@class='dropdown']//span[@class='menu_text' and contains(text(),'Account')]")
+    public SelenideElement buttonAccount;
+
+    @NameOfElement("Cart button (header)")
+    @FindBy(xpath = "//li[@class='dropdown']//span[@class='menu_text' and contains(text(),'Cart')]")
+    public SelenideElement buttonCart;
+
+    @NameOfElement("Checkout button (header)")
+    @FindBy(xpath = "//li[@class='dropdown']//span[@class='menu_text' and contains(text(),'Checkout')]")
+    public SelenideElement buttonCheckout;
 }

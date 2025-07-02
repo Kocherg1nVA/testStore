@@ -7,24 +7,26 @@ import org.apache.logging.log4j.Logger;
 
 
 public abstract class AbstractPage {
-    protected final Logger logger = LogManager.getLogger(this.getClass());
+    protected final Logger LOGGER = LogManager.getLogger(this.getClass());
 
     protected SelenideElement $(By locator) {
         return $(locator);
     }
 
+    public abstract void switchToPage();
+
     protected void click(SelenideElement element) {
-        logger.info("Клик по элементу: " + element.getSearchCriteria());
+        LOGGER.info("Клик по элементу: " + element.getSearchCriteria());
         element.click();
     }
 
     protected void type(SelenideElement element, String text) {
-        logger.info("Ввод текста: " + text + "в элемент: " + element.getSearchCriteria());
+        LOGGER.info("Ввод текста: " + text + "в элемент: " + element.getSearchCriteria());
         element.setValue(text);
     }
 
     protected String getText(SelenideElement element) {
-        logger.info("Получение текста из элемента: " + element.getSearchCriteria());
+        LOGGER.info("Получение текста из элемента: " + element.getSearchCriteria());
         return element.getText();
     }
 }
