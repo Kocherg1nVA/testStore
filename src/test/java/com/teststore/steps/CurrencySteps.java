@@ -5,6 +5,7 @@ import com.teststore.model.Currency;
 import io.cucumber.java.ru.И;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.Assert;
 
 import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.$;
@@ -14,7 +15,7 @@ public class CurrencySteps {
 
     @И("Выбрать валюту {string}")
     public void selectCurrency(String currencyName) {
-        LOGGER.info("Начало выбора валюты: ()", currencyName);
+        LOGGER.info("Начало выбора валюты: {}", currencyName);
 
         try {
             Currency currency = Currency.fromString(currencyName);
@@ -30,6 +31,34 @@ public class CurrencySteps {
             LOGGER.info("Валюта успешно выбрана: {}", currency.getDisplayName());
         } catch (Exception e) {
             LOGGER.error("Ошибка при выборе валюты '{}' : {}", currencyName, e.getMessage(), e);
+            throw e;
+        }
+    }
+
+    @И("Проверить, что выбрана валюта {string}")
+    public void checkCurrency(String currencyName) {
+        try {
+            LOGGER.info("Начало проверки валюты. Ожидаемая валюта: {}", currencyName);
+
+            String fullText = $(byXpath("//span[@class='label label-orange font14']/parent::span"))
+                    .shouldBe(Condition.visible)
+                    .getText();
+            LOGGER.debug("Полный текст элемента: {}", fullText);
+
+            String actualCurrency = fullText
+                    .split(" ", 2)[1]
+                    .replaceAll("\"|==.*$", "")
+                    .trim()
+                    .toLowerCase();
+            LOGGER.debug("Извлеченное название валюты после обработки: {}", actualCurrency);
+
+            String expectedCurrency = currencyName.toLowerCase();
+            LOGGER.debug("Ожидаемое название валюты после обработки: {}", expectedCurrency);
+
+            Assert.assertEquals(currencyName.toLowerCase(), actualCurrency);
+            LOGGER.info("Валюта: {} соответствует ожидаемой", actualCurrency);
+        } catch (Exception e) {
+            LOGGER.error("Ошибка при проверке валюты '{}' : {}", currencyName, e.getMessage(), e);
             throw e;
         }
     }
