@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class Specials extends AbstractPage {
 
-    @NameOfElement("Special offers title")
+    @NameOfElement("Special offers accountLoginTitle")
     @FindBy(xpath = "//span[@class='maintext' and contains (text(), 'Special Offers')]")
     public SelenideElement specialOffersTitle;
 

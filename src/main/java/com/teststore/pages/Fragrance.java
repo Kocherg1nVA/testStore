@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class Fragrance extends AbstractPage {
 
-    @NameOfElement("Fragrance title")
+    @NameOfElement("Fragrance accountLoginTitle")
     @FindBy(xpath = "//span[@class='maintext' and contains (text(), 'Fragrance')]")
     public SelenideElement fragranceTitle;
 
