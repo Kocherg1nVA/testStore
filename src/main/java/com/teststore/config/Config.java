@@ -26,4 +26,12 @@ public class Config {
     public static String getTimeOut() {
         return PROPERTIES.getProperty("timeout");
     }
+
+    public static String getBrowserResolution() {
+        return PROPERTIES.getProperty("browserResolution");
+    }
+
+    public static String getBrowserPosition() {
+        return PROPERTIES.getProperty("browserPosition");
+    }
 }

@@ -16,11 +16,13 @@ public class Hooks {
 
     @Before
     public void setup(Scenario scenario) {
-        SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(true));
+        SelenideLogger.addListener("AllureSelenide",
+                new AllureSelenide().screenshots(true).savePageSource(true));
         Configuration.browser = Config.getBrowser();
         Configuration.timeout = Long.parseLong(Config.getTimeOut());
         Configuration.headless = false; // Можно включить для CI
-//        Configuration.baseUrl = Config.getBaseUrl();
+        Configuration.browserSize = Config.getBrowserResolution();
+        Configuration.browserPosition = Config.getBrowserPosition();
     }
 
     @After
