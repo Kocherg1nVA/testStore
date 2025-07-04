@@ -1,0 +1,5 @@
+11:45:48.320 [main] INFO  com.teststore.steps.CurrencySteps - Начало выбора валюты: ()
+11:45:48.324 [main] DEBUG com.teststore.steps.CurrencySteps - Конвертация валюты выполнена: Pound Sterling -> POUND
+11:45:48.588 [main] DEBUG com.teststore.steps.CurrencySteps - Наведение курсора на элемент выполнено
+11:45:48.690 [main] DEBUG com.teststore.steps.CurrencySteps - Меню выбора валют стало видимым
+11:45:49.974 [main] INFO  com.teststore.steps.CurrencySteps - Валюта успешно выбрана: Pound Sterling
