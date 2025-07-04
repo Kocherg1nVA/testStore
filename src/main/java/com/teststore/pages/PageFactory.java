@@ -17,6 +17,8 @@ public class PageFactory {
         registerPage("men", Men.class);
         registerPage("haircare", HairCare.class);
         registerPage("books", Books.class);
+        registerPage("specials", Specials.class);
+        registerPage("cart", Cart.class);
 
         //TODO добавить остальные страницы
     }

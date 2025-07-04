@@ -7,7 +7,7 @@ import org.openqa.selenium.support.FindBy;
 public class LoginPage extends AbstractPage {
 
     @NameOfElement("Title")
-    @FindBy(xpath = "//span[@class='maintext']")
+    @FindBy(xpath = "//span[@class='maintext' and contains (text(), 'Account Login')]")
     public SelenideElement title;
 
 

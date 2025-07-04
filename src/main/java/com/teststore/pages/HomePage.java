@@ -34,6 +34,10 @@ public class HomePage extends AbstractPage {
     @FindBy(xpath = "//li[@class='dropdown']//span[@class='menu_text' and contains(text(),'Checkout')]")
     public SelenideElement buttonCheckout;
 
+    @NameOfElement("Search field (header)")
+    @FindBy(xpath = "//input[@placeholder='Search Keywords']")
+    public SelenideElement searchField;
+
     @NameOfElement("Home button")
     @FindBy(xpath = "//a[@class='active menu_home']")
     public SelenideElement buttonHome;
