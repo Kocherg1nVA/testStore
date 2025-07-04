@@ -10,6 +10,14 @@ public class PageFactory {
     static {
         registerPage("home", HomePage.class);
         registerPage("login", LoginPage.class);
+        registerPage("apparelandaccessories", ApparelAndAccessories.class);
+        registerPage("makeup", Makeup.class);
+        registerPage("skincare", Skincare.class);
+        registerPage("fragrance", Fragrance.class);
+        registerPage("men", Men.class);
+        registerPage("haircare", HairCare.class);
+        registerPage("books", Books.class);
+
         //TODO добавить остальные страницы
     }
 

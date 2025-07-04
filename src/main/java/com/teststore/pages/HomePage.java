@@ -34,6 +34,38 @@ public class HomePage extends AbstractPage {
     @FindBy(xpath = "//li[@class='dropdown']//span[@class='menu_text' and contains(text(),'Checkout')]")
     public SelenideElement buttonCheckout;
 
+    @NameOfElement("Home button")
+    @FindBy(xpath = "//a[@class='active menu_home']")
+    public SelenideElement buttonHome;
+
+    @NameOfElement("Apparel and Accessories button")
+    @FindBy(xpath = "//a[@href and contains (text(), 'Apparel & accessories')]")
+    public SelenideElement apparelAndAccessoriesButton;
+
+    @NameOfElement("Makeup button")
+    @FindBy(xpath = "//a[@href and contains (text(), 'Makeup')]")
+    public SelenideElement makeupButton;
+
+    @NameOfElement("Skincare button")
+    @FindBy(xpath = "//a[@href and contains (text(), 'Skincare')]")
+    public SelenideElement skincareButton;
+
+    @NameOfElement("Fragrance button")
+    @FindBy(xpath = "//a[@href and contains (text(), 'Fragrance')]")
+    public SelenideElement fragranceButton;
+
+    @NameOfElement("Men button")
+    @FindBy(xpath = "//a[@href and contains (text(), 'Men')]")
+    public SelenideElement menButton;
+
+    @NameOfElement("Hair care button")
+    @FindBy(xpath = "//a[@href and contains (text(), 'Hair Care')]")
+    public SelenideElement hairCareButton;
+
+    @NameOfElement("Books button")
+    @FindBy(xpath = "//a[@href and contains (text(), 'Books')]")
+    public SelenideElement booksButton;
+
     @Override
     public void switchToPage() {
         slider.shouldBe(Condition.visible);

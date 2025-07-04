@@ -1,0 +1,17 @@
+package com.teststore.pages;
+
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
+import org.openqa.selenium.support.FindBy;
+
+public class Books extends AbstractPage {
+
+    @NameOfElement("Books title")
+    @FindBy(xpath = "//span[@class='maintext' and contains (text(), 'Books')]")
+    public SelenideElement booksTitle;
+
+    @Override
+    public void switchToPage() {
+        booksTitle.shouldBe(Condition.visible);
+    }
+}
