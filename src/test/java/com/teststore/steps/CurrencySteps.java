@@ -55,8 +55,13 @@ public class CurrencySteps {
             String expectedCurrency = currencyName.toLowerCase();
             LOGGER.debug("Ожидаемое название валюты после обработки: {}", expectedCurrency);
 
-            Assert.assertEquals(currencyName.toLowerCase(), actualCurrency);
-            LOGGER.info("Валюта: {} соответствует ожидаемой", actualCurrency);
+            if (expectedCurrency.equals(actualCurrency)) {
+                LOGGER.info("Валюта соответствует: ожидалось '{}', фактически '{}'",
+                        expectedCurrency, actualCurrency);
+            } else {
+                throw new AssertionError(String.format("Ожидалась валюта '%s', но найдена '%s'",
+                        expectedCurrency, actualCurrency));
+            }
         } catch (Exception e) {
             LOGGER.error("Ошибка при проверке валюты '{}' : {}", currencyName, e.getMessage(), e);
             throw e;
