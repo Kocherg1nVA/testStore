@@ -19,6 +19,10 @@ public class Config {
         return PROPERTIES.getProperty("base.url");
     }
 
+    public static String getLoginUrl() {
+        return PROPERTIES.getProperty("login.url");
+    }
+
     public static String getBrowser() {
         return PROPERTIES.getProperty("browser");
     }

@@ -21,6 +21,7 @@ public class PageFactory {
         registerPage("cart", Cart.class);
         registerPage("createaccount", CreateAccountPage.class);
         registerPage("createdaccount", CreatedAccountPage.class);
+        registerPage("myaccount", MyAccountPage.class);
 
         //TODO добавить остальные страницы
     }

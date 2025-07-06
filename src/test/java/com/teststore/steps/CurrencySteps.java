@@ -3,14 +3,11 @@ package com.teststore.steps;
 import com.codeborne.selenide.Condition;
 import com.teststore.model.Currency;
 import io.cucumber.java.ru.И;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.$;
 
-public class CurrencySteps {
-    private static final Logger LOGGER = LogManager.getLogger(CurrencySteps.class);
+public class CurrencySteps extends AbstractSteps {
 
     @И("Выбрать валюту {string}")
     public void selectCurrency(String currencyName) {

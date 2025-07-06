@@ -16,12 +16,13 @@
         </Root>
 
         <!-- Для более детального лога -->
-        <Logger name="com.teststore.steps" level="DEBUG" additivity="false">
+        <Logger name="com.teststore.steps" level="TRACE" additivity="false">
             <AppenderRef ref="Console"/>
             <AppenderRef ref="File"/>
         </Logger>
 
         <!-- Уменьшил логирование Selenide -->
         <Logger name="com.codeborne.selenide" level="WARN"/>
+        <Logger name="org.openqa.selenium" level="WARN"/>
     </Loggers>
 </Configuration>
