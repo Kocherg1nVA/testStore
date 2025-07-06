@@ -34,4 +34,12 @@ public class Config {
     public static String getBrowserPosition() {
         return PROPERTIES.getProperty("browserPosition");
     }
+
+    public static String getLogin() {
+        return PROPERTIES.getProperty("auth.login");
+    }
+
+    public static String getPassword() {
+        return PROPERTIES.getProperty("auth.password");
+    }
 }
