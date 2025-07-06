@@ -8,20 +8,20 @@ public class PageFactory {
     private static final Map<String, Class<? extends AbstractPage>> PAGE_REGISTRY = new HashMap<>();
 
     static {
-        registerPage("home", HomePage.class);
-        registerPage("login", LoginPage.class);
-        registerPage("apparelandaccessories", ApparelAndAccessories.class);
-        registerPage("makeup", Makeup.class);
-        registerPage("skincare", Skincare.class);
-        registerPage("fragrance", Fragrance.class);
-        registerPage("men", Men.class);
-        registerPage("haircare", HairCare.class);
-        registerPage("books", Books.class);
-        registerPage("specials", Specials.class);
-        registerPage("cart", Cart.class);
-        registerPage("createaccount", CreateAccountPage.class);
-        registerPage("createdaccount", CreatedAccountPage.class);
-        registerPage("myaccount", MyAccountPage.class);
+        registerPage("HomePage", HomePage.class);
+        registerPage("LoginPage", LoginPage.class);
+        registerPage("ApparelAndAccessoriesPage", ApparelAndAccessories.class);
+        registerPage("MakeupPage", Makeup.class);
+        registerPage("SkincarePage", Skincare.class);
+        registerPage("FragrancePage", Fragrance.class);
+        registerPage("MenPage", Men.class);
+        registerPage("HaircarePage", HairCare.class);
+        registerPage("BooksPage", Books.class);
+        registerPage("SpecialsPage", Specials.class);
+        registerPage("CartPage", Cart.class);
+        registerPage("CreateAccountPage", CreateAccountPage.class);
+        registerPage("CreatedAccountPage", CreatedAccountPage.class);
+        registerPage("MyAccountPage", MyAccountPage.class);
 
         //TODO добавить остальные страницы
     }

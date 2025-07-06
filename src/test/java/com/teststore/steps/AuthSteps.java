@@ -7,15 +7,15 @@ import com.teststore.pages.MyAccountPage;
 import com.teststore.pages.PageFactory;
 import io.cucumber.java.ru.И;
 
-public class AuthSteps extends AbstractSteps{
+public class AuthSteps extends AbstractSteps {
 
     @И("Авторизоваться на сайте под логином {string}")
     public void Auth(String login) {
-        checkLogin(login);
-        LOGGER.debug("Начало процесса авторизации для пользователя: {}", login);
-
         Selenide.open(Config.getLoginUrl());
         LOGGER.trace("Открыта страница авторизации: {}", Config.getLoginUrl());
+
+        checkLogin(login);
+        LOGGER.debug("Начало процесса авторизации для пользователя: {}", login);
 
         LoginPage loginPage = PageFactory.getPage(LoginPage.class);
         loginPage.fieldLoginName.setValue(login);
