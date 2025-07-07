@@ -30,18 +30,17 @@ public class CheckSteps extends AbstractSteps {
         }
     }
 
-    @И(value = "^(.+) > проверить по частичному совпадению, что на странице присутствует текст \"(.+)\"$")
+    @И(value = "^(.+) > проверить, что на странице присутствует текст \"(.+)\"$")
     public void checkTextPartialMatchOnPage(String pageName, String expectedText) {
-        LOGGER.info("Проверка частичного совпадения текста '{}' на странице '{}'", expectedText, pageName);
+        LOGGER.info("Проверка наличия текста '{}' на странице '{}'", expectedText, pageName);
 
         try {
             PageFactory.getPage(pageName);
-            $(By.xpath(String.format("//*[contains(text(),'%s')]", expectedText))).shouldBe(Condition.visible,
+            $(By.xpath(String.format("//*[contains(., '%s')]", expectedText))).shouldBe(Condition.visible,
                     Duration.ofSeconds(15));
-            LOGGER.info("Успешно: присутствует частичное совпадение текст '{}' на странице '{}'", expectedText, pageName);
+            LOGGER.info("Успешно: текст присутствует '{}' на странице '{}'", expectedText, pageName);
         } catch (ElementNotFound e) {
-            LOGGER.error("Ошибка: отсутствует частичное совпадение текста '{}' на странице '{}'",
-                    expectedText, pageName);
+            LOGGER.error("Ошибка: текст отсутствует '{}' на странице '{}'", expectedText, pageName);
             throw e;
         }
     }
@@ -52,7 +51,7 @@ public class CheckSteps extends AbstractSteps {
 
         try {
             currentPage = PageFactory.getPage(pageName);
-            currentPage.getElement(elementName).shouldHave(Condition.text(expectedText));
+            currentPage.getElement(elementName).shouldBe(Condition.visible).shouldHave(Condition.text(expectedText));
             LOGGER.info("Успешно: элемент '{}' содержит текст '{}'", elementName, expectedText);
         } catch (Exception e) {
             LOGGER.error("Ошибка: элемент '{}' не содержит текст '{}'", elementName, expectedText);
