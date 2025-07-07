@@ -2,6 +2,7 @@ package com.teststore.steps;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ex.ElementNotFound;
+import com.teststore.pages.AbstractPage;
 import com.teststore.pages.PageFactory;
 import io.cucumber.java.ru.И;
 import org.openqa.selenium.By;
@@ -10,7 +11,8 @@ import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class CheckVisibilitySteps extends AbstractSteps {
+public class CheckSteps extends AbstractSteps {
+    private AbstractPage currentPage;
 
     @И(value = "^(.+) > проверить по полному совпадению, что на странице присутствует текст \"(.+)\"$")
     public void checkTextExactMatchOnPage(String pageName, String expectedText) {
@@ -40,6 +42,20 @@ public class CheckVisibilitySteps extends AbstractSteps {
         } catch (ElementNotFound e) {
             LOGGER.error("Ошибка: отсутствует частичное совпадение текста '{}' на странице '{}'",
                     expectedText, pageName);
+            throw e;
+        }
+    }
+
+    @И(value = "^(.+) > проверить, что элемент \"(.+)\" содержит текст \"(.+)\"$")
+    public void checkElementContainText(String pageName, String elementName, String expectedText) {
+        LOGGER.info("Проверка элемента '{}' на содержание текста '{}'", elementName, expectedText);
+
+        try {
+            currentPage = PageFactory.getPage(pageName);
+            currentPage.getElement(elementName).shouldHave(Condition.text(expectedText));
+            LOGGER.info("Успешно: элемент '{}' содержит текст '{}'", elementName, expectedText);
+        } catch (Exception e) {
+            LOGGER.error("Ошибка: элемент '{}' не содержит текст '{}'", elementName, expectedText);
             throw e;
         }
     }

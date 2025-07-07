@@ -1,32 +1,36 @@
 package com.teststore.pages;
 
 import com.codeborne.selenide.SelenideElement;
-import org.openqa.selenium.By;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.Arrays;
+import java.util.Optional;
 
 
 public abstract class AbstractPage {
     protected final Logger LOGGER = LogManager.getLogger(this.getClass());
 
-    protected SelenideElement $(By locator) {
-        return $(locator);
-    }
-
     public abstract void switchToPage();
 
-    protected void click(SelenideElement element) {
-        LOGGER.info("Клик по элементу: " + element.getSearchCriteria());
-        element.click();
+    public SelenideElement getElement(String elementName) {
+        return findElementByAnnotation(elementName)
+                .orElseThrow(() -> new IllegalArgumentException(String.format("Элемент с именем '%s' не найден на странице '%s'",
+                        elementName, this.getClass().getSimpleName())));
     }
 
-    protected void type(SelenideElement element, String text) {
-        LOGGER.info("Ввод текста: " + text + "в элемент: " + element.getSearchCriteria());
-        element.setValue(text);
-    }
-
-    protected String getText(SelenideElement element) {
-        LOGGER.info("Получение текста из элемента: " + element.getSearchCriteria());
-        return element.getText();
+    private Optional<SelenideElement> findElementByAnnotation(String elementName) {
+        return Arrays.stream(this.getClass().getFields())
+                .filter(field -> field.isAnnotationPresent(NameOfElement.class))
+                .filter(field -> field.getAnnotation(NameOfElement.class).value().equals(elementName))
+                .findFirst()
+                .map(field -> {
+                    try {
+                        field.setAccessible(true);
+                        return (SelenideElement) field.get(this);
+                    } catch (IllegalAccessException e) {
+                        throw new RuntimeException("Не удалось получить доступ к полю: " + field.getName(),e);
+                    }
+                });
     }
 }
