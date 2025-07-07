@@ -4,7 +4,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.support.FindBy;
 
-public class ApparelAndAccessories extends AbstractPage {
+public class ApparelAndAccessoriesPage extends AbstractPage {
 
     @NameOfElement("Apparel and accessories accountLoginTitle")
     @FindBy(xpath = "//span[@class='maintext' and contains (text(), 'Apparel & accessories')]")

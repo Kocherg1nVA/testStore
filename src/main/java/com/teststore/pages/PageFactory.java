@@ -10,19 +10,20 @@ public class PageFactory {
     static {
         registerPage("HomePage", HomePage.class);
         registerPage("LoginPage", LoginPage.class);
-        registerPage("ApparelAndAccessoriesPage", ApparelAndAccessories.class);
-        registerPage("MakeupPage", Makeup.class);
-        registerPage("SkincarePage", Skincare.class);
-        registerPage("FragrancePage", Fragrance.class);
-        registerPage("MenPage", Men.class);
-        registerPage("HaircarePage", HairCare.class);
-        registerPage("BooksPage", Books.class);
-        registerPage("SpecialsPage", Specials.class);
-        registerPage("CartPage", Cart.class);
+        registerPage("ApparelAndAccessoriesPage", ApparelAndAccessoriesPage.class);
+        registerPage("MakeupPage", MakeupPage.class);
+        registerPage("SkincarePage", SkincarePage.class);
+        registerPage("FragrancePage", FragrancePage.class);
+        registerPage("MenPage", MenPage.class);
+        registerPage("HaircarePage", HairCarePage.class);
+        registerPage("BooksPage", BooksPage.class);
+        registerPage("SpecialsPage", SpecialsPage.class);
+        registerPage("ShoppingCartPage", ShoppingCartPage.class);
         registerPage("CreateAccountPage", CreateAccountPage.class);
         registerPage("CreatedAccountPage", CreatedAccountPage.class);
         registerPage("MyAccountPage", MyAccountPage.class);
         registerPage("AccountLogoutPage", AccountLogoutPage.class);
+        registerPage("SearchPage", SearchPage.class);
 
         //TODO добавить остальные страницы
     }

@@ -8,7 +8,7 @@ import io.cucumber.java.ru.И;
 public class ActionSteps extends AbstractSteps {
     AbstractPage currentPage;
 
-    @И(value = "(.+) > нажать на элемент \"(.+)\"$")
+    @И(value = "^(.+) > нажать на элемент \"(.+)\"$")
     public void clickOnElement(String pageName, String elementName) {
         try {
             currentPage = PageFactory.getPage(pageName);
@@ -20,7 +20,7 @@ public class ActionSteps extends AbstractSteps {
         }
     }
 
-    @И(value = "(.+) > ввести текст \"(.+)\" в поле \"(.+)\"$")
+    @И(value = "^(.+) > ввести текст \"(.+)\" в поле \"(.+)\"$")
     public void enterTextToField(String pageName, String text, String elementName) {
         try {
             currentPage = PageFactory.getPage(pageName);
