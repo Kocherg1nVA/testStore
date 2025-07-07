@@ -33,9 +33,9 @@ public class CurrencySteps extends AbstractSteps {
 
     @И("Проверить, что выбрана валюта {string}")
     public void checkCurrency(String currencyName) {
-        try {
-            LOGGER.info("Начало проверки валюты. Ожидаемая валюта: {}", currencyName);
+        LOGGER.info("Начало проверки валюты. Ожидаемая валюта: {}", currencyName);
 
+        try {
             String fullText = $(byXpath("//span[@class='label label-orange font14']/parent::span"))
                     .shouldBe(Condition.visible)
                     .getText();

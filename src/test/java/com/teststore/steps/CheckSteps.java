@@ -22,10 +22,11 @@ public class CheckSteps extends AbstractSteps {
             PageFactory.getPage(pageName);
             $(By.xpath(String.format("//*[text()='%s']", expectedText))).shouldBe(Condition.visible,
                     Duration.ofSeconds(15));
-            LOGGER.info("Успешно: присутствует полное совпадение текста '{}' на странице '{}'", expectedText, pageName);
+            LOGGER.info("Успешно: на странице '{}' присутствует полное совпадение текста '{}'",
+                    pageName, expectedText);
         } catch (ElementNotFound e) {
-            LOGGER.error("Ошибка: отсутствует полное совпадение текста '{}' на странице '{}'",
-                    expectedText, pageName);
+            LOGGER.error("Ошибка: на странице '{}' отсутствует полное совпадение текста '{}'",
+                    pageName, expectedText);
             throw e;
         }
     }
@@ -38,9 +39,9 @@ public class CheckSteps extends AbstractSteps {
             PageFactory.getPage(pageName);
             $(By.xpath(String.format("//*[contains(., '%s')]", expectedText))).shouldBe(Condition.visible,
                     Duration.ofSeconds(15));
-            LOGGER.info("Успешно: текст присутствует '{}' на странице '{}'", expectedText, pageName);
+            LOGGER.info("Успешно: на странице '{}' текст присутствует '{}'", pageName, expectedText);
         } catch (ElementNotFound e) {
-            LOGGER.error("Ошибка: текст отсутствует '{}' на странице '{}'", expectedText, pageName);
+            LOGGER.error("Ошибка: на странице '{}' текст отсутствует '{}'", pageName, expectedText);
             throw e;
         }
     }

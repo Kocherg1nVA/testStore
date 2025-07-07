@@ -11,4 +11,6 @@
 #    И HomePage > нажать на элемент "Specials button (header)"
     И HomePage > ввести текст "Makeup" в поле "Search field (header)"
     И HomePage > нажать на элемент "Search button (header)"
+#    И SearchPage > выбрать элемент из выпадающего меню "Category dropdown" по тексту "Skincare"
+    И SearchPage > выбрать элемент из выпадающего меню "Category dropdown" по индексу "7"
     
