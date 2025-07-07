@@ -19,24 +19,28 @@ public class HomePage extends AbstractPage {
     public SelenideElement buttonLoginOrRegister;
 
     @NameOfElement("Specials button (header)")
-    @FindBy(xpath = "//li[@class='dropdown']//span[@class='menu_text' and contains(text(),'Specials')]")
+    @FindBy(xpath = "//ul[@id='main_menu_top']//span[@class='menu_text' and contains(text(),'Specials')]")
     public SelenideElement buttonSpecials;
 
     @NameOfElement("Account button (header)")
-    @FindBy(xpath = "//li[@class='dropdown']//span[@class='menu_text' and contains(text(),'Account')]")
+    @FindBy(xpath = "//ul[@id='main_menu_top']//span[@class='menu_text' and contains(text(),'Account')]")
     public SelenideElement buttonAccount;
 
     @NameOfElement("Cart button (header)")
-    @FindBy(xpath = "//li[@class='dropdown']//span[@class='menu_text' and contains(text(),'Cart')]")
+    @FindBy(xpath = "//ul[@id='main_menu_top']//span[@class='menu_text' and contains(text(),'Cart')]")
     public SelenideElement buttonCart;
 
     @NameOfElement("Checkout button (header)")
-    @FindBy(xpath = "//li[@class='dropdown']//span[@class='menu_text' and contains(text(),'Checkout')]")
+    @FindBy(xpath = "//ul[@id='main_menu_top']//span[@class='menu_text' and contains(text(),'Checkout')]")
     public SelenideElement buttonCheckout;
 
     @NameOfElement("Search field (header)")
     @FindBy(xpath = "//input[@placeholder='Search Keywords']")
     public SelenideElement searchField;
+
+    @NameOfElement("Search button (header)")
+    @FindBy(xpath = "//div[@class='button-in-search']")
+    public SelenideElement buttonSearch;
 
     @NameOfElement("Home button")
     @FindBy(xpath = "//a[@class='active menu_home']")

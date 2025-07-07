@@ -8,4 +8,7 @@
     И HomePage > проверить, что на странице присутствует текст "This site is to be used for educational purposes only. Enjoy!"
     И Выбрать валюту "Pound Sterling"
     И Проверить, что выбрана валюта "Pound Sterling"
+#    И HomePage > нажать на элемент "Specials button (header)"
+    И HomePage > ввести текст "Makeup" в поле "Search field (header)"
+    И HomePage > нажать на элемент "Search button (header)"
     
