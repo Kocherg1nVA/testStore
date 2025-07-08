@@ -34,8 +34,6 @@ public class HomePage extends CommonPage {
     @FindBy(xpath = "//span[@class='maintext' and contains(text(), 'Brands Scrolling List')]")
     public SelenideElement titleBrandsList;
 
-
-
     @Override
     public void switchToPage() {
         slider.shouldBe(Condition.visible);

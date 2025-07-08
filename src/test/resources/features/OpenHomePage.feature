@@ -8,9 +8,12 @@
     И HomePage > проверить, что на странице присутствует текст "This site is to be used for educational purposes only. Enjoy!"
     И Выбрать валюту "Pound Sterling"
     И Проверить, что выбрана валюта "Pound Sterling"
+#    И HomePage > проскроллить страницу до текста "Brands Scrolling List"
+#    И HomePage > проскроллить страницу до элемента "Slider"
+    И ожидать 2 секунд
 #    И HomePage > нажать на элемент "Specials button (header)"
     И HomePage > ввести текст "Makeup" в поле "Search field (header)"
     И HomePage > нажать на элемент "Search button (header)"
-#    И SearchPage > выбрать элемент из выпадающего меню "Category dropdown" по тексту "Skincare"
-    И SearchPage > выбрать элемент из выпадающего меню "Category dropdown" по индексу "7"
+    И SearchPage > выбрать элемент из выпадающего меню "Category dropdown" по тексту "Skincare"
+    И SearchPage > выбрать элемент из выпадающего меню "Category dropdown" по индексу 7
     

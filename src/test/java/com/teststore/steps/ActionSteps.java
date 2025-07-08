@@ -53,7 +53,7 @@ public class ActionSteps extends AbstractSteps {
         }
     }
 
-    @И(value = "^(.+) > выбрать элемент из выпадающего меню \"(.+)\" по индексу \"(.+)\"$")
+    @И(value = "^(.+) > выбрать элемент из выпадающего меню \"(.+)\" по индексу (\\d+)$")
     public void selectElementOnDropdownMenuByIndex(String pageName, String elementName, int index) {
         LOGGER.info("На странице '{}' выбрать опцию выпадающего меню '{}' по индексу '{}'",
                 pageName, elementName, index);
