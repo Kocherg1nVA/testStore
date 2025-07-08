@@ -9,6 +9,7 @@ public class PageFactory {
 
     static {
         registerPage("HomePage", HomePage.class);
+        registerPage("CommonPage", CommonPage.class);
         registerPage("LoginPage", LoginPage.class);
         registerPage("ApparelAndAccessoriesPage", ApparelAndAccessoriesPage.class);
         registerPage("MakeupPage", MakeupPage.class);

@@ -4,7 +4,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.support.FindBy;
 
-public class CreatedAccountPage extends AbstractPage {
+public class CreatedAccountPage extends CommonPage {
 
     @NameOfElement("Created Account title")
     @FindBy(xpath = "//span[@class='maintext' and contains(text(), 'Your Account Has Been Created!')]")

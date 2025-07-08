@@ -59,4 +59,20 @@ public class CheckSteps extends AbstractSteps {
             throw e;
         }
     }
+
+    @И(value = "^(.+) > проверить, что элемент \"(.+)\" окрасился в синий цвет")
+    public void checkColorChange(String pageName, String elementName) {
+        LOGGER.info("Проверка, что элемент '{}' окрасился в синий цвет", elementName);
+        try {
+            currentPage = PageFactory.getPage(pageName);
+            currentPage.getElement(elementName).shouldHave(Condition.cssValue("background-color",
+                    "rgba(0, 161, 203, 1)"));
+            LOGGER.info("Успешно: на странице '{}' элемент '{}' окрасился в синий цвет", pageName, elementName);
+        } catch (AssertionError e) {
+            String actualColor = currentPage.getElement(elementName).getCssValue("background-color");
+            LOGGER.error("Ошибка: на странице '{}' цвет элемента '{}' не соответствует ожидаемому, фактический цвет '{}'",
+                    pageName, elementName, actualColor);
+            throw e;
+        }
+    }
 }
