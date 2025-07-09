@@ -2,12 +2,14 @@ package com.teststore.steps;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ex.ElementNotFound;
+import com.teststore.model.BackgroundColors;
 import com.teststore.pages.AbstractPage;
 import com.teststore.pages.PageFactory;
 import io.cucumber.java.ru.И;
 import org.openqa.selenium.By;
 
 import java.time.Duration;
+import java.util.Arrays;
 
 import static com.codeborne.selenide.Selenide.$;
 
@@ -60,14 +62,21 @@ public class CheckSteps extends AbstractSteps {
         }
     }
 
-    @И(value = "^(.+) > проверить, что элемент \"(.+)\" окрасился в синий цвет")
-    public void checkColorChange(String pageName, String elementName) {
-        LOGGER.info("Проверка, что элемент '{}' окрасился в синий цвет", elementName);
+    @И(value = "^(.+) > проверить, что элемент \"(.+)\" окрасился в \"(.+)\" цвет$")
+    public void checkColorChange(String pageName, String elementName, String colorName) {
+        LOGGER.info("Проверка, что элемент '{}' окрасился в '{}' цвет", elementName, colorName);
         try {
             currentPage = PageFactory.getPage(pageName);
+            BackgroundColors expectedColor = BackgroundColors.valueOf(colorName.toUpperCase());
+            String expectedColorCode = expectedColor.getColorCode();
             currentPage.getElement(elementName).shouldHave(Condition.cssValue("background-color",
-                    "rgba(0, 161, 203, 1)"));
-            LOGGER.info("Успешно: на странице '{}' элемент '{}' окрасился в синий цвет", pageName, elementName);
+                    expectedColorCode));
+            LOGGER.info("Успешно: на странице '{}' элемент '{}' окрасился в '{}' цвет", pageName, elementName, colorName);
+        } catch (IllegalArgumentException e) {
+            String errorMsg = String.format("Цвет '%s' не поддерживается. Доступные цвета: %s",
+                    colorName, Arrays.toString(BackgroundColors.values()));
+            LOGGER.error(errorMsg);
+            throw new IllegalArgumentException(errorMsg);
         } catch (AssertionError e) {
             String actualColor = currentPage.getElement(elementName).getCssValue("background-color");
             LOGGER.error("Ошибка: на странице '{}' цвет элемента '{}' не соответствует ожидаемому, фактический цвет '{}'",
@@ -75,4 +84,5 @@ public class CheckSteps extends AbstractSteps {
             throw e;
         }
     }
+    //TODO реализовать метод проверки отмечен/не отмечен чек-бокс
 }

@@ -5,6 +5,7 @@ import com.codeborne.selenide.Selenide;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
+import com.codeborne.selenide.SelenideElement;
 import com.teststore.config.Config;
 import com.teststore.pages.AbstractPage;
 import com.teststore.pages.PageFactory;
@@ -22,7 +23,7 @@ public class BrowserSteps extends AbstractSteps{
         LOGGER.info("Успешно: домашняя страница: {} открыта", Config.getBaseUrl());
     }
 
-    @И("Перейти по URL \"(/+)\"$")
+    @И("^Перейти по URL \"(/+)\"$")
     public void navigateToUrl(String url) {
         Selenide.open(url);
         LOGGER.info("Успешно: завершен переход на страницу '{}'", url);
@@ -46,7 +47,7 @@ public class BrowserSteps extends AbstractSteps{
         LOGGER.info("Успешно: осуществлен переход на следующую страницу");
     }
 
-    @И("Переключиться на вкладку браузера с индексом \"(/+)\"$")
+    @И(value = "^Переключиться на вкладку браузера с индексом \"(/+)\"$")
     public void switchToTab(int index) {
         Selenide.switchTo().window(index);
         LOGGER.info("Успешно: осуществлен переход на вкладку с индексом '{}'", index);
@@ -71,7 +72,8 @@ public class BrowserSteps extends AbstractSteps{
         LOGGER.info("Проскроллить страницу '{}' до элемента '{}'", pageName, elementName);
         try {
             currentPage = PageFactory.getPage(pageName);
-            currentPage.getElement(elementName).scrollIntoView(true).shouldBe(Condition.visible, Duration.ofSeconds(15));
+            SelenideElement dropdown = currentPage.getElement(elementName);
+            dropdown.scrollIntoView(true).shouldBe(Condition.visible, Duration.ofSeconds(15));
             LOGGER.info("Успешно: осуществлен скролл страницы '{}' до элемента '{}'", pageName, elementName);
         } catch (IllegalArgumentException e) {
             String errMessage = String.format("Ошибка: на странице '%s' не найден элемент с именем '%s'", pageName, elementName);
@@ -86,12 +88,15 @@ public class BrowserSteps extends AbstractSteps{
         LOGGER.info("Успешно: завершено ожидание в течении '{}' секунд", seconds);
     }
 
-    @И("дождаться загрузки страницы")
+    @И("ожидать загрузки страницы")
     public void waitForPageLoad() {
         Selenide.Wait()
                 .withTimeout(Duration.ofSeconds(15))
                 .until(d -> executeJavaScript("return document.readyState"))
                 .equals("complete");
+        LOGGER.info("Успешно: завершено ожидание загрузки страницы");
     }
+
+    //TODO реализовать метод ожидания появления элемента в течении n секунд
 
 }

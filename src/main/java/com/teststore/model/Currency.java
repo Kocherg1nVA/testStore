@@ -21,6 +21,6 @@ public enum Currency {
                 return currency;
             }
         }
-        throw new IllegalArgumentException("Валюта с названием: " + text + " не найдена");
+        throw new IllegalArgumentException(String.format("Валюта с названием: '%s' не найдена", text));
     }
 }

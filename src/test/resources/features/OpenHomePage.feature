@@ -15,5 +15,6 @@
     И HomePage > ввести текст "Makeup" в поле "Search field (header)"
     И HomePage > нажать на элемент "Search button (header)"
     И SearchPage > выбрать элемент из выпадающего меню "Category dropdown" по тексту "Skincare"
-    И SearchPage > выбрать элемент из выпадающего меню "Category dropdown" по индексу 7
+    И SearchPage > выбрать элемент из выпадающего меню "Category dropdown" по индексу 1
+    И ожидать 10 секунд
     

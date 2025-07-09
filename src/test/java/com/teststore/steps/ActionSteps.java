@@ -60,7 +60,7 @@ public class ActionSteps extends AbstractSteps {
         try {
             currentPage = PageFactory.getPage(pageName);
             SelenideElement dropdown = currentPage.getElement(elementName);
-            String optionText = dropdown.$$("option").get(index).getText().trim();
+            String optionText = dropdown.$$("option").get(index).getText().replaceAll("^\\s+", "");
             dropdown.selectOption(index);
             LOGGER.info("Успешно: на странице '{}' выбрана опция '{}' выпадающего меню '{}' по индексу '{}'",
                     pageName, optionText, elementName, index);
@@ -70,4 +70,5 @@ public class ActionSteps extends AbstractSteps {
             throw e;
         }
     }
+    //TODO реализовать методы для взаимодействия с чек-боксами
 }
