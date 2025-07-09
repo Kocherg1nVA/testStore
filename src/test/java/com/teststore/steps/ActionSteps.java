@@ -1,6 +1,7 @@
 package com.teststore.steps;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.teststore.pages.AbstractPage;
 import com.teststore.pages.PageFactory;
@@ -69,6 +70,15 @@ public class ActionSteps extends AbstractSteps {
                     pageName, elementName, index);
             throw e;
         }
+    }
+
+    @И(value = "^(.+) > (установить|снять) чек-бокс \"(.+)\"$")
+    public void toggleCheckbox(String pageName, String action, String checkboxName) {
+        currentPage = PageFactory.getPage(pageName);
+        SelenideElement checkbox = currentPage.getElement(checkboxName);
+        boolean shouldBeChecked = action.equals("установить");
+        checkbox.setSelected(shouldBeChecked);
+        LOGGER.info("Успешно: чекбокс '{}' {}", checkboxName, shouldBeChecked ? "отмечен" : "снят");
     }
     //TODO реализовать методы для взаимодействия с чек-боксами
 }

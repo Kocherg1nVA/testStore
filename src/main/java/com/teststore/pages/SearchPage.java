@@ -30,6 +30,10 @@ public class SearchPage extends CommonPage {
     @FindBy(xpath = "//select[@id='sort']")
     public SelenideElement dropdownSortBy;
 
+    @NameOfElement("Search button")
+    @FindBy(xpath = "//button[@id='search_button']")
+    public SelenideElement buttonSearch;
+
     @Override
     public void switchToPage() {
         titleSearch.shouldBe(Condition.visible);

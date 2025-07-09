@@ -14,7 +14,13 @@
 #    И HomePage > нажать на элемент "Specials button (header)"
     И HomePage > ввести текст "Makeup" в поле "Search field (header)"
     И HomePage > нажать на элемент "Search button (header)"
-    И SearchPage > выбрать элемент из выпадающего меню "Category dropdown" по тексту "Skincare"
-    И SearchPage > выбрать элемент из выпадающего меню "Category dropdown" по индексу 1
+    И SearchPage > установить чек-бокс "Search in product description checkbox"
+    И SearchPage > проверить, что чек-бокс "Search in product description checkbox" установлен
+    И SearchPage > снять чек-бокс "Search in product description checkbox"
+    И SearchPage > проверить, что чек-бокс "Search in product description checkbox" снят
+
+    И SearchPage > нажать на элемент "Search button"
+#    И SearchPage > выбрать элемент из выпадающего меню "Category dropdown" по тексту "Skincare"
+#    И SearchPage > выбрать элемент из выпадающего меню "Category dropdown" по индексу 1
     И ожидать 10 секунд
     

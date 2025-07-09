@@ -1,6 +1,7 @@
 package com.teststore.steps;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.ex.ElementNotFound;
 import com.teststore.model.BackgroundColors;
 import com.teststore.pages.AbstractPage;
@@ -12,6 +13,7 @@ import java.time.Duration;
 import java.util.Arrays;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.page;
 
 public class CheckSteps extends AbstractSteps {
     private AbstractPage currentPage;
@@ -83,6 +85,15 @@ public class CheckSteps extends AbstractSteps {
                     pageName, elementName, actualColor);
             throw e;
         }
+    }
+
+    @И(value = "^(.+) > проверить, что чек-бокс \"(.+)\" (установлен|снят)$")
+    public void checkCheckboxState(String pageName, String checkboxName, String expectedState) {
+        currentPage = PageFactory.getPage(pageName);
+        SelenideElement checkbox = currentPage.getElement(checkboxName);
+        boolean shouldBeChecked = expectedState.equals("установлен");
+        checkbox.shouldBe(shouldBeChecked ? Condition.selected : Condition.not(Condition.selected));
+        LOGGER.info("Успешно: чек-бокс '{}' {}", checkboxName, shouldBeChecked ? "установлен" : "снят");
     }
     //TODO реализовать метод проверки отмечен/не отмечен чек-бокс
 }
