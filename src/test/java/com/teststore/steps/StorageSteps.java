@@ -1,33 +1,33 @@
 package com.teststore.steps;
 
-import com.teststore.pages.AbstractPage;
-import com.teststore.pages.PageFactory;
 import com.teststore.utils.Storage;
 import io.cucumber.java.ru.Дано;
-import io.cucumber.java.ru.И;
 
 import java.util.List;
 import java.util.Map;
 
 public class StorageSteps extends AbstractSteps{
-    AbstractPage currentPage;
 
     @Дано("инициализация тестовых данных")
     public void initializeTestData(List<Map<String, String>> dataTable) {
         for (Map<String, String> row : dataTable) {
+
             String key = row.get("Ключ");
-            String type = row.get("Тип");
             String value = row.get("Значение");
 
-            switch (type.toLowerCase()) {
-                case "int":
+            try {
+                if (value.matches("\\d+")) {
                     Storage.put(key, Integer.parseInt(value));
-                    break;
-                case "boolean":
+                } else if (value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false")) {
                     Storage.put(key, Boolean.parseBoolean(value));
-                    break;
-                default:
+                } else {
                     Storage.put(key, value);
+                }
+                LOGGER.info("Сохранено в хранилище: ключ: {}, значение: {} (Тип: {})",
+                        key, value, Storage.get(key).getClass().getSimpleName());
+            } catch (Exception e) {
+                LOGGER.error("Ошибка при обработке значения {}: {}", key, e.getMessage());
+                throw e;
             }
         }
     }

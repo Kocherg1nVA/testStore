@@ -13,7 +13,6 @@ public class ActionSteps extends AbstractSteps {
 
     @И(value = "^(.+) > нажать на элемент \"(.+)\"$")
     public void clickOnElement(String pageName, String elementName) {
-        LOGGER.info("На странице '{}' произвести нажатие на элемент '{}'", pageName, elementName);
         try {
             currentPage = PageFactory.getPage(pageName);
             currentPage.getElement(elementName).shouldBe(Condition.visible).click();
@@ -26,7 +25,6 @@ public class ActionSteps extends AbstractSteps {
 
     @И(value = "^(.+) > ввести текст \"(.+)\" в поле \"(.+)\"$")
     public void enterTextToField(String pageName, String text, String elementName) {
-        LOGGER.info("На странице '{}' ввести текст '{}' в поле '{}'", pageName, text, elementName);
         try {
             currentPage = PageFactory.getPage(pageName);
             currentPage.getElement(elementName).shouldBe(Condition.visible).setValue(text);
@@ -39,7 +37,7 @@ public class ActionSteps extends AbstractSteps {
         }
     }
 
-    @И(value = "^(.+) > ввести текст по ключу \"(.+)\" хранилища в поле \"(.+)\"$")
+    @И(value = "^(.+) > ввести значение по ключу \"(.+)\" тестовых данных в поле \"(.+)\"$")
     public void enterTextToFieldFromStorage(String pageName, String valueKey, String elementName) {
         try {
             currentPage = PageFactory.getPage(pageName);
@@ -50,37 +48,58 @@ public class ActionSteps extends AbstractSteps {
             }
 
             String textValue = value.toString();
-            LOGGER.info("на странице '{}' ввод значения '{}' (из Storage по ключу '{}') в поле '{}' ",
+            LOGGER.info("Успешно: на странице '{}' введен текст '{}' из тестовых данных '{}' в поле '{}' ",
                     pageName, textValue, valueKey, elementName);
 
             currentPage.getElement(elementName).setValue(textValue);
 
         } catch (Exception e) {
-            LOGGER.error("Ошибка при вводе текста из Storage: {}", e.getMessage());
+            LOGGER.error("Ошибка: на странице '{}' не удалось ввести текст из тестовых данных '{}' в поле '{}'",
+                    pageName, valueKey, elementName);
             throw e;
         }
     }
 
-    @И(value = "^(.+) > выбрать элемент из выпадающего меню \"(.+)\" по тексту \"(.+)\"$")
+    @И(value = "^(.+) > выбрать элемент из выпадающего списка \"(.+)\" по тексту \"(.+)\"$")
     public void selectElementOnDropdownMenuByText(String pageName, String elementName, String text) {
-        LOGGER.info("На странице '{}' выбрать опцию выпадающего меню '{}' по тексту '{}'",
-                pageName, elementName, text);
         try {
             currentPage = PageFactory.getPage(pageName);
             currentPage.getElement(elementName).selectOptionContainingText(text);
-            LOGGER.info("Успешно: на странице '{}' выбрана опция выпадающего меню '{}' по тексту '{}'",
+            LOGGER.info("Успешно: на странице '{}' выбрана опция выпадающего списка '{}' по тексту '{}'",
                     pageName, elementName, text);
         } catch (Exception e) {
-            LOGGER.error("Ошибка: на странице '{}' не удалось выбрать опцию выпадающего меню '{}' по тексту '{}'",
+            LOGGER.error("Ошибка: на странице '{}' не удалось выбрать опцию выпадающего списка '{}' по тексту '{}'",
                     pageName, elementName, text);
+            throw e;
+        }
+    }
+
+    @И(value = "^(.+) > выбрать элемент из выпадающего списка \"(.+)\" по ключу \"(.+)\" тестовых данных$")
+    public void selectElementOnDropdownMenuFromStorage(String pageName, String elementName, String valueKey) {
+        try {
+            currentPage = PageFactory.getPage(pageName);
+            Object value = Storage.get(valueKey);
+
+            if (value == null) {
+                throw new RuntimeException(String.format("Значение по ключу '%s' не найдено в Storage", valueKey));
+            }
+
+            String textValue = value.toString();
+            LOGGER.info("на странице '{}' выбор значения '{}' (из Storage по ключу '{}') в поле '{}' ",
+                    pageName, textValue, valueKey, elementName);
+
+            currentPage.getElement(elementName).selectOptionContainingText(textValue);
+            LOGGER.info("Успешно: на странице '{}' выбрана опция '{}' выпадающего списка '{}' по тестовым данным '{}'",
+                    pageName, textValue, elementName, valueKey);
+        } catch (Exception e) {
+            LOGGER.error("Ошибка: на странице '{}' не удалось выбрать опцию выпадающего списка '{}' по тестовым данным '{}'",
+                    pageName, elementName, valueKey);
             throw e;
         }
     }
 
     @И(value = "^(.+) > выбрать элемент из выпадающего меню \"(.+)\" по индексу (\\d+)$")
     public void selectElementOnDropdownMenuByIndex(String pageName, String elementName, int index) {
-        LOGGER.info("На странице '{}' выбрать опцию выпадающего меню '{}' по индексу '{}'",
-                pageName, elementName, index);
         try {
             currentPage = PageFactory.getPage(pageName);
             SelenideElement dropdown = currentPage.getElement(elementName);
@@ -103,5 +122,4 @@ public class ActionSteps extends AbstractSteps {
         checkbox.setSelected(shouldBeChecked);
         LOGGER.info("Успешно: чекбокс '{}' {}", checkboxName, shouldBeChecked ? "отмечен" : "снят");
     }
-    //TODO реализовать методы для взаимодействия с чек-боксами
 }

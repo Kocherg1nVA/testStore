@@ -93,7 +93,6 @@ public class CheckSteps extends AbstractSteps {
         SelenideElement checkbox = currentPage.getElement(checkboxName);
         boolean shouldBeChecked = expectedState.equals("установлен");
         checkbox.shouldBe(shouldBeChecked ? Condition.selected : Condition.not(Condition.selected));
-        LOGGER.info("Успешно: чек-бокс '{}' {}", checkboxName, shouldBeChecked ? "установлен" : "снят");
+        LOGGER.info("Успешно: проверка, что чек-бокс '{}' {}", checkboxName, shouldBeChecked ? "установлен" : "снят");
     }
-    //TODO реализовать метод проверки отмечен/не отмечен чек-бокс
 }
