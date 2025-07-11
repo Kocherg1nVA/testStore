@@ -5,6 +5,7 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.teststore.pages.AbstractPage;
 import com.teststore.pages.PageFactory;
+import com.teststore.utils.Storage;
 import io.cucumber.java.ru.И;
 
 public class ActionSteps extends AbstractSteps {
@@ -34,6 +35,28 @@ public class ActionSteps extends AbstractSteps {
         } catch (Exception e) {
             LOGGER.error("Ошибка: на странице '{}' не удалось ввести текст '{}' в поле '{}'",
                     pageName, text, elementName);
+            throw e;
+        }
+    }
+
+    @И(value = "^(.+) > ввести текст по ключу \"(.+)\" хранилища в поле \"(.+)\"$")
+    public void enterTextToFieldFromStorage(String pageName, String valueKey, String elementName) {
+        try {
+            currentPage = PageFactory.getPage(pageName);
+            Object value = Storage.get(valueKey);
+
+            if (value == null) {
+                throw new RuntimeException(String.format("Значение по ключу '%s' не найдено в Storage", valueKey));
+            }
+
+            String textValue = value.toString();
+            LOGGER.info("на странице '{}' ввод значения '{}' (из Storage по ключу '{}') в поле '{}' ",
+                    pageName, textValue, valueKey, elementName);
+
+            currentPage.getElement(elementName).setValue(textValue);
+
+        } catch (Exception e) {
+            LOGGER.error("Ошибка при вводе текста из Storage: {}", e.getMessage());
             throw e;
         }
     }
