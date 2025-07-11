@@ -2,7 +2,10 @@ package com.teststore.steps;
 
 import com.teststore.utils.Storage;
 import io.cucumber.java.ru.Дано;
+import io.cucumber.java.ru.И;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -30,5 +33,14 @@ public class StorageSteps extends AbstractSteps{
                 throw e;
             }
         }
+    }
+
+    @И("^хранилище > сохранить текущую дату в хранилище с ключом \"(.+)\"$")
+    public void storeCurrentDate(String key) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyyyHHmm");
+        String currentDateTime = LocalDateTime.now().format(formatter);
+        Storage.put(key, currentDateTime);
+        LOGGER.info("Текущая дата сохранена в хранилище: ключом '{}' и значением '{}'",
+                key, currentDateTime);
     }
 }
