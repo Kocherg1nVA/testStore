@@ -12,11 +12,21 @@ import java.util.Map;
 public class StorageSteps extends AbstractSteps{
 
     @Дано("инициализация тестовых данных")
+    @И("инициализировать тестовые данные")
     public void initializeTestData(List<Map<String, String>> dataTable) {
+        initializeTestData(null, dataTable);
+    }
+
+    @И("^инициализировать тестовые данные с подстановкой \"(.+)\"$")
+    public void initializeTestData(String dateValue, List<Map<String, String>> dataTable) {
         for (Map<String, String> row : dataTable) {
 
             String key = row.get("Ключ");
             String value = row.get("Значение");
+
+            if (value != null && value.contains("<>")) {
+                value = value.replace("<>", Storage.get(dateValue));
+            }
 
             try {
                 if (value.matches("\\d+")) {

@@ -2,31 +2,30 @@
 Функционал: Регистрация
   Сценарий: Зарегистрировать нового пользователя
 
-    Дано инициализация тестовых данных
+    Дано Открыть домашнюю страницу
+    И HomePage > проверить, что на странице присутствует текст "Welcome to the Automation Test Store!"
+    И HomePage > проверить, что на странице присутствует текст "This is not a real store. No orders are actually placed or any payments taken."
+    И HomePage > проверить, что на странице присутствует текст "It is recommended you use test data when practicing using this site."
+    И HomePage > проверить, что на странице присутствует текст "This site is to be used for educational purposes only. Enjoy!"
+
+    И хранилище > сохранить текущую дату в хранилище с ключом "current_date"
+
+    И инициализировать тестовые данные с подстановкой "current_date"
     |Ключ              |Значение         |
     |First Name        |Ivan             |
     |Last Name         |Ivanov           |
-    |email             |test12@test.ru   |
+    |email             |test<>@test.ru   |
     |Address 1         |Lenina, 2        |
     |Country           |Russia           |
     |Region / State    |Mari El Republic |
     |City              |Yoshkar-Ola      |
     |ZIP Code          |424000           |
-    |Login name        |IvanovIvan       |
-    |Password          |qwerty123        |
-    |Password confirm  |qwerty123        |
-
-    Дано Открыть домашнюю страницу
-
-    И HomePage > проверить, что на странице присутствует текст "Welcome to the Automation Test Store!"
-    И HomePage > проверить, что на странице присутствует текст "This is not a real store. No orders are actually placed or any payments taken."
-    И HomePage > проверить, что на странице присутствует текст "It is recommended you use test data when practicing using this site."
-    И HomePage > проверить, что на странице присутствует текст "This site is to be used for educational purposes only. Enjoy!"
-    И ожидать 2 секунд
+    |Login name        |User<>           |
+    |Password          |qwerty!<>        |
+    |Password confirm  |qwerty!<>        |
 
     И HomePage > нажать на элемент "Login or register button (header)"
     И ожидать 2 секунд
-
 
     И LoginPage > проверить по полному совпадению, что на странице присутствует текст "I am a new customer."
     И LoginPage > нажать на элемент "Continue registration button"
@@ -84,5 +83,8 @@
     И CreatedAccountPage > проверить, что на странице присутствует текст "You can now take advantage of member privileges to enhance your online shopping experience with us."
     И CreatedAccountPage > проверить, что на странице присутствует текст "If you have ANY questions about the operation of this online shop, please email the store owner."
     И CreatedAccountPage > проверить, что на странице присутствует текст "A confirmation has been sent to the provided email address. If you have not received it within the hour, please contact us."
+#    И ожидать 2 секунд
+#    И CreatedAccountPage > нажать на элемент "Continue button"
+
 #    И CreateAccountPage > проверить, что на странице присутствует текст "Error: E-Mail Address is already registered!"
-#  Login name must be alphanumeric only and between 5 and 64 characters!
+#                                                                         Login name must be alphanumeric only and between 5 and 64 characters!
