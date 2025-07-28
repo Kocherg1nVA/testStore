@@ -50,7 +50,7 @@ public class StorageSteps extends AbstractSteps{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyyyHHmm");
         String currentDateTime = LocalDateTime.now().format(formatter);
         Storage.put(key, currentDateTime);
-        LOGGER.info("Текущая дата сохранена в хранилище: ключом '{}' и значением '{}'",
+        LOGGER.info("Текущая дата сохранена в хранилище: c ключом '{}' и значением '{}'",
                 key, currentDateTime);
     }
 }

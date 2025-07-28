@@ -9,7 +9,7 @@ import static com.codeborne.selenide.Selenide.$;
 
 public class CurrencySteps extends AbstractSteps {
 
-    @И("Выбрать валюту {string}")
+    @И("^Выбрать валюту \"(.+)\"$")
     public void selectCurrency(String currencyName) {
         LOGGER.info("Начало выбора валюты: {}", currencyName);
 
@@ -31,7 +31,7 @@ public class CurrencySteps extends AbstractSteps {
         }
     }
 
-    @И("Проверить, что выбрана валюта {string}")
+    @И("^Проверить, что выбрана валюта \"(.+)\"$")
     public void checkCurrency(String currencyName) {
         LOGGER.info("Начало проверки валюты. Ожидаемая валюта: {}", currencyName);
 
