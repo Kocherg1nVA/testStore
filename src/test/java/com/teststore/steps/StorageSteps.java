@@ -53,4 +53,5 @@ public class StorageSteps extends AbstractSteps{
         LOGGER.info("Текущая дата сохранена в хранилище: c ключом '{}' и значением '{}'",
                 key, currentDateTime);
     }
+    //TODO создать отдельный класс для манипуляций с датами
 }

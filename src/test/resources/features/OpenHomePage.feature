@@ -10,7 +10,7 @@
     И Проверить, что выбрана валюта "Pound Sterling"
     И HomePage > нажать на элемент "Books button"
     И BooksPage > добавить товар в корзину по названию "Paper Towns by John Green"
-    И BooksPage > добавить товар в корзину по цене "12.85"
+    И BooksPage > добавить товар в корзину по цене "12.75"
     И BooksPage > нажать на элемент "Cart button (header)"
     И ShoppingCartPage > проверить, что на странице присутствует текст "Paper Towns by John Green"
     И ShoppingCartPage > проверить, что на странице присутствует текст "12.85"

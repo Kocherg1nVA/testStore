@@ -48,4 +48,6 @@ public class AddProductsToCartSteps extends AbstractSteps {
         }
     }
     //TODO объединить методы в один для устранения дублирования кода
+    //TODO улучшить логирование при негативном сценарии
+
 }
