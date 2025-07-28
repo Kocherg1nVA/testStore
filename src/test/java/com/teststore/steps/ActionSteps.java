@@ -1,0 +1,125 @@
+package com.teststore.steps;
+
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.SelenideElement;
+import com.teststore.pages.AbstractPage;
+import com.teststore.pages.PageFactory;
+import com.teststore.utils.Storage;
+import io.cucumber.java.ru.И;
+
+public class ActionSteps extends AbstractSteps {
+    AbstractPage currentPage;
+
+    @И(value = "^(.+) > нажать на элемент \"(.+)\"$")
+    public void clickOnElement(String pageName, String elementName) {
+        try {
+            currentPage = PageFactory.getPage(pageName);
+            currentPage.getElement(elementName).shouldBe(Condition.visible).click();
+            LOGGER.info("Успешно: на странице '{}' произведено нажатие элемента '{}' ", pageName, elementName);
+        } catch (Exception e) {
+            LOGGER.error("Ошибка: на странице '{}' не найден элемент '{}'", pageName, elementName);
+            throw e;
+        }
+    }
+
+    @И(value = "^(.+) > ввести текст \"(.+)\" в поле \"(.+)\"$")
+    public void enterTextToField(String pageName, String text, String elementName) {
+        try {
+            currentPage = PageFactory.getPage(pageName);
+            currentPage.getElement(elementName).shouldBe(Condition.visible).setValue(text);
+            LOGGER.info("Успешно: на странице '{}' введен текст '{}' в поле '{}' ",
+                    pageName, text, elementName);
+        } catch (Exception e) {
+            LOGGER.error("Ошибка: на странице '{}' не удалось ввести текст '{}' в поле '{}'",
+                    pageName, text, elementName);
+            throw e;
+        }
+    }
+
+    @И(value = "^(.+) > ввести значение по ключу \"(.+)\" тестовых данных в поле \"(.+)\"$")
+    public void enterTextToFieldFromStorage(String pageName, String valueKey, String elementName) {
+        try {
+            currentPage = PageFactory.getPage(pageName);
+            Object value = Storage.get(valueKey);
+
+            if (value == null) {
+                throw new RuntimeException(String.format("Значение по ключу '%s' не найдено в Storage", valueKey));
+            }
+
+            String textValue = value.toString();
+            LOGGER.info("Успешно: на странице '{}' введен текст '{}' из тестовых данных '{}' в поле '{}' ",
+                    pageName, textValue, valueKey, elementName);
+
+            currentPage.getElement(elementName).setValue(textValue);
+
+        } catch (Exception e) {
+            LOGGER.error("Ошибка: на странице '{}' не удалось ввести текст из тестовых данных '{}' в поле '{}'",
+                    pageName, valueKey, elementName);
+            throw e;
+        }
+    }
+
+    @И(value = "^(.+) > выбрать элемент из выпадающего списка \"(.+)\" по тексту \"(.+)\"$")
+    public void selectElementOnDropdownMenuByText(String pageName, String elementName, String text) {
+        try {
+            currentPage = PageFactory.getPage(pageName);
+            currentPage.getElement(elementName).selectOptionContainingText(text);
+            LOGGER.info("Успешно: на странице '{}' выбрана опция выпадающего списка '{}' по тексту '{}'",
+                    pageName, elementName, text);
+        } catch (Exception e) {
+            LOGGER.error("Ошибка: на странице '{}' не удалось выбрать опцию выпадающего списка '{}' по тексту '{}'",
+                    pageName, elementName, text);
+            throw e;
+        }
+    }
+
+    @И(value = "^(.+) > выбрать элемент из выпадающего списка \"(.+)\" по ключу \"(.+)\" тестовых данных$")
+    public void selectElementOnDropdownMenuFromStorage(String pageName, String elementName, String valueKey) {
+        try {
+            currentPage = PageFactory.getPage(pageName);
+            Object value = Storage.get(valueKey);
+
+            if (value == null) {
+                throw new RuntimeException(String.format("Значение по ключу '%s' не найдено в Storage", valueKey));
+            }
+
+            String textValue = value.toString();
+            LOGGER.info("на странице '{}' выбор значения '{}' (из Storage по ключу '{}') в поле '{}' ",
+                    pageName, textValue, valueKey, elementName);
+
+            currentPage.getElement(elementName).selectOptionContainingText(textValue);
+            LOGGER.info("Успешно: на странице '{}' выбрана опция '{}' выпадающего списка '{}' по тестовым данным '{}'",
+                    pageName, textValue, elementName, valueKey);
+        } catch (Exception e) {
+            LOGGER.error("Ошибка: на странице '{}' не удалось выбрать опцию выпадающего списка '{}' по тестовым данным '{}'",
+                    pageName, elementName, valueKey);
+            throw e;
+        }
+    }
+
+    @И(value = "^(.+) > выбрать элемент из выпадающего меню \"(.+)\" по индексу (\\d+)$")
+    public void selectElementOnDropdownMenuByIndex(String pageName, String elementName, int index) {
+        try {
+            currentPage = PageFactory.getPage(pageName);
+            SelenideElement dropdown = currentPage.getElement(elementName);
+            String optionText = dropdown.$$("option").get(index).getText().replaceAll("^\\s+", "");
+            dropdown.selectOption(index);
+            LOGGER.info("Успешно: на странице '{}' выбрана опция '{}' выпадающего меню '{}' по индексу '{}'",
+                    pageName, optionText, elementName, index);
+        } catch (Exception e) {
+            LOGGER.error("Ошибка: на странице '{}' не удалось выбрать опцию выпадающего меню '{}' по индексу '{}'",
+                    pageName, elementName, index);
+            throw e;
+        }
+    }
+
+    @И(value = "^(.+) > (установить|снять) чек-бокс \"(.+)\"$")
+    public void toggleCheckbox(String pageName, String action, String checkboxName) {
+        currentPage = PageFactory.getPage(pageName);
+        SelenideElement checkbox = currentPage.getElement(checkboxName);
+        boolean shouldBeChecked = action.equals("установить");
+        checkbox.setSelected(shouldBeChecked);
+        LOGGER.info("Успешно: чекбокс '{}' {}", checkboxName, shouldBeChecked ? "отмечен" : "снят");
+    }
+}
