@@ -10,7 +10,7 @@
     И Проверить, что выбрана валюта "Pound Sterling"
     И HomePage > нажать на элемент "Books button"
     И BooksPage > добавить товар в корзину по названию "Paper Towns by John Green"
-    И BooksPage > добавить товар в корзину по цене "12.75"
+    И BooksPage > добавить товар в корзину по цене "12.85"
     И BooksPage > нажать на элемент "Cart button (header)"
     И ShoppingCartPage > проверить, что на странице присутствует текст "Paper Towns by John Green"
     И ShoppingCartPage > проверить, что на странице присутствует текст "12.85"
@@ -29,5 +29,5 @@
 #    И SearchPage > нажать на элемент "Search button"
 #    И SearchPage > выбрать элемент из выпадающего меню "Category dropdown" по тексту "Skincare"
 #    И SearchPage > выбрать элемент из выпадающего меню "Category dropdown" по индексу 1
-    И ожидать 10 секунд
+#    И ожидать 10 секунд
     

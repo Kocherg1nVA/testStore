@@ -13,7 +13,6 @@ import java.time.Duration;
 import java.util.Arrays;
 
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.page;
 
 public class CheckSteps extends AbstractSteps {
     private AbstractPage currentPage;
