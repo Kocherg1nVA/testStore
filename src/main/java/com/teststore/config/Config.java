@@ -10,6 +10,10 @@ public class Config {
         try {
             PROPERTIES.load(Config.class.getClassLoader()
                     .getResourceAsStream("config.properties"));
+            System.setProperty("webdriver.chrome.driver", getChromeDriverPath());
+            System.setProperty("webdriver.auto.management", getWebdriverAutoManagement());
+            System.setProperty("selenide.browser", getBrowser());
+            System.setProperty("selenide.timeout", getTimeOut());
         } catch (IOException e) {
             throw new RuntimeException("Ошибка при загрузке конфигурации из файла config.properties", e);
         }
@@ -45,5 +49,21 @@ public class Config {
 
     public static String getPassword() {
         return PROPERTIES.getProperty("auth.password");
+    }
+
+    public static String getChromeDriverPath() {
+        return PROPERTIES.getProperty("webdriver.chrome.driver");
+    }
+
+    public static String getWebdriverAutoManagement() {
+        return PROPERTIES.getProperty("webdriver.auto.management");
+    }
+
+    public static boolean isHeadless() {
+        return Boolean.parseBoolean(PROPERTIES.getProperty("selenide.headless", "false"));
+    }
+
+    public static String getSelenideBrowser() {
+        return PROPERTIES.getProperty("selenide.browser");
     }
 }

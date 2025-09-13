@@ -21,7 +21,7 @@ public class Hooks {
                 new AllureSelenide().screenshots(true).savePageSource(true));
         Configuration.browser = Config.getBrowser();
         Configuration.timeout = Long.parseLong(Config.getTimeOut());
-        Configuration.headless = false; // Можно включить для CI
+        Configuration.headless = Config.isHeadless();
         Configuration.browserSize = Config.getBrowserResolution();
         Configuration.browserPosition = Config.getBrowserPosition();
     }
