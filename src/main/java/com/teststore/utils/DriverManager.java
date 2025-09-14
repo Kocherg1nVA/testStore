@@ -20,9 +20,4 @@ public class DriverManager {
         }
     }
 
-    public static void setupDriver() {
-        String driverPath = getDriverPath();
-        System.setProperty("webdriver.chrome.driver", driverPath);
-        System.out.println("Используется доайвер: " + driverPath);
-    }
 }

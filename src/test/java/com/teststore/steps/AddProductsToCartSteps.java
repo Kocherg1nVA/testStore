@@ -9,7 +9,7 @@ public class AddProductsToCartSteps extends AbstractSteps {
 
     @И(value = "^(.+) > добавить товар в корзину по (названию|цене) \"(.+)\"$")
     public void addToCart(String pageName, String parameterType, String product) {
-        LOGGER.info("Добавление товара '{}' по '{}' в корзину", product, parameterType);
+        LOGGER.info("Добавление по '{}' товара '{}' в корзину", parameterType, product);
         try {
             String productXpath;
             if (parameterType.equals("названию")) {

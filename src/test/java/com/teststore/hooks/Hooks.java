@@ -18,9 +18,14 @@ public class Hooks {
 
     @Before
     public void setup(Scenario scenario) {
+        String driverPath = DriverManager.getDriverPath();
+        System.setProperty("webdriver.chrome.driver", DriverManager.getDriverPath());
+        Configuration.driverManagerEnabled = false;
+
+        System.out.println("Используется драйвер: " + driverPath);
+
         SelenideLogger.addListener("AllureSelenide",
                 new AllureSelenide().screenshots(true).savePageSource(true));
-        DriverManager.setupDriver();
         Configuration.browser = Config.getBrowser();
         Configuration.timeout = Long.parseLong(Config.getTimeOut());
         Configuration.headless = Config.isHeadless();
