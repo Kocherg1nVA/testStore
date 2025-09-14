@@ -4,7 +4,7 @@ import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import com.teststore.config.Config;
-import com.teststore.utils.DriverManager;
+import com.teststore.config.DriverConfiguration;
 import com.teststore.utils.Storage;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -18,8 +18,8 @@ public class Hooks {
 
     @Before
     public void setup(Scenario scenario) {
-        String driverPath = DriverManager.getDriverPath();
-        System.setProperty("webdriver.chrome.driver", DriverManager.getDriverPath());
+        String driverPath = DriverConfiguration.getDriverPath();
+        System.setProperty("webdriver.chrome.driver", DriverConfiguration.getDriverPath());
         Configuration.driverManagerEnabled = false;
 
         System.out.println("Используется драйвер: " + driverPath);

@@ -47,10 +47,6 @@ public class Config {
         return PROPERTIES.getProperty("auth.password");
     }
 
-    public static String getWebdriverAutoManagement() {
-        return PROPERTIES.getProperty("webdriver.auto.management");
-    }
-
     public static boolean isHeadless() {
         return Boolean.parseBoolean(PROPERTIES.getProperty("selenide.headless", "false"));
     }

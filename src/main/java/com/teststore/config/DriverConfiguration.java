@@ -1,8 +1,8 @@
-package com.teststore.utils;
+package com.teststore.config;
 
 import java.nio.file.Paths;
 
-public class DriverManager {
+public class DriverConfiguration {
 
     public static String getDriverPath() {
         String os = System.getProperty("os.name").toLowerCase();
