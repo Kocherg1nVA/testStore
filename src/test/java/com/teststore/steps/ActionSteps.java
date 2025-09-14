@@ -1,10 +1,10 @@
 package com.teststore.steps;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.teststore.pages.AbstractPage;
 import com.teststore.pages.PageFactory;
+import com.teststore.utils.StepUtils;
 import com.teststore.utils.Storage;
 import io.cucumber.java.ru.И;
 
@@ -23,16 +23,17 @@ public class ActionSteps extends AbstractSteps {
         }
     }
 
-    @И(value = "^(.+) > ввести текст \"(.+)\" в поле \"(.+)\"$")
-    public void enterTextToField(String pageName, String text, String elementName) {
+    @И(value = "^(.+) > ввести значение \"(.+)\" в поле \"(.+)\"$")
+    public void enterValueToField(String pageName, String value, String elementName) {
+        value = StepUtils.resolve(value);
         try {
             currentPage = PageFactory.getPage(pageName);
-            currentPage.getElement(elementName).shouldBe(Condition.visible).setValue(text);
-            LOGGER.info("Успешно: на странице '{}' введен текст '{}' в поле '{}' ",
-                    pageName, text, elementName);
+            currentPage.getElement(elementName).shouldBe(Condition.visible).setValue(value);
+            LOGGER.info("Успешно: на странице '{}' введено значение '{}' в поле '{}' ",
+                    pageName, value, elementName);
         } catch (Exception e) {
-            LOGGER.error("Ошибка: на странице '{}' не удалось ввести текст '{}' в поле '{}'",
-                    pageName, text, elementName);
+            LOGGER.error("Ошибка: на странице '{}' не удалось ввести значение '{}' в поле '{}'",
+                    pageName, value, elementName);
             throw e;
         }
     }

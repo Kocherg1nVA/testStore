@@ -16,7 +16,7 @@ public class Storage {
         storage.put(key, value);
     }
 
-    @SuppressWarnings("unchecked") // имеется контроль через метод put
+    @SuppressWarnings("unchecked")
     public static <T> T get(String key) {
         T value = (T) storage.get(key);
 
@@ -28,6 +28,8 @@ public class Storage {
         }
         return value;
     }
+
+
 
     public static void clear() {
         LOGGER.info("Очистка хранилища. Текущий размер: {}", storage.size());

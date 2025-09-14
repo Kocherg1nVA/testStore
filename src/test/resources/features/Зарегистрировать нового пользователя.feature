@@ -10,19 +10,33 @@
 
     И хранилище > сохранить текущую дату в хранилище с ключом "current_date"
 
-    И инициализировать тестовые данные с подстановкой "current_date"
-    |Ключ              |Значение         |
-    |First Name        |Ivan             |
-    |Last Name         |Ivanov           |
-    |email             |test<>@test.ru   |
-    |Address 1         |Lenina, 2        |
-    |Country           |Russia           |
-    |Region / State    |Mari El Republic |
-    |City              |Yoshkar-Ola      |
-    |ZIP Code          |424000           |
-    |Login name        |User<>           |
-    |Password          |qwerty!<>        |
-    |Password confirm  |qwerty!<>        |
+#    И инициализировать тестовые данные с подстановкой "current_date"
+#    |Ключ              |Значение         |
+#    |First Name        |Ivan             |
+#    |Last Name         |Ivanov           |
+#    |email             |test<>@test.ru   |
+#    |Address 1         |Lenina, 2        |
+#    |Country           |Russia           |
+#    |Region / State    |Mari El Republic |
+#    |City              |Yoshkar-Ola      |
+#    |ZIP Code          |424000           |
+#    |Login name        |User<>           |
+#    |Password          |qwerty!<>        |
+#    |Password confirm  |qwerty!<>        |
+
+    И инициализировать тестовые данные
+      |First Name        |Ivan                        |
+      |Last Name         |Ivanov                      |
+      |email             |test${current_date}@test.ru |
+      |Address 1         |Lenina, 2                   |
+      |Country           |Russia                      |
+      |Region / State    |Mari El Republic            |
+      |City              |Yoshkar-Ola                 |
+      |ZIP Code          |424000                      |
+      |Login name        |User${current_date}         |
+      |Password          |qwerty!${current_date}      |
+      |Password confirm  |qwerty!${current_date}      |
+
 
     И HomePage > нажать на элемент "Login or register button (header)"
     И ожидать 2 секунд
@@ -33,14 +47,19 @@
 
 
     И CreateAccountPage > проверить по полному совпадению, что на странице присутствует текст "Your Personal Details"
-    И CreateAccountPage > ввести значение по ключу "First Name" тестовых данных в поле "First Name field"
+#    И CreateAccountPage > ввести значение по ключу "First Name" тестовых данных в поле "First Name field"
+    И CreateAccountPage > ввести значение "${First Name}" в поле "First Name field"
     И ожидать 2 секунд
 
-    И CreateAccountPage > ввести значение по ключу "Last Name" тестовых данных в поле "Last Name field"
+#    И CreateAccountPage > ввести значение по ключу "Last Name" тестовых данных в поле "Last Name field"
+    И CreateAccountPage > ввести значение "${Last Name}" в поле "Last Name field"
+
     И ожидать 2 секунд
 
-    И CreateAccountPage > ввести значение по ключу "email" тестовых данных в поле "Email field"
-    И ожидать 2 секунд
+#    И CreateAccountPage > ввести значение по ключу "email" тестовых данных в поле "Email field"
+    И CreateAccountPage > ввести значение "${email}" в поле "Email field"
+
+    И ожидать 200 секунд
 
     И CreateAccountPage > проскроллить страницу до текста "Your Address"
     И CreateAccountPage > ввести значение по ключу "Address 1" тестовых данных в поле "Address1 field"
