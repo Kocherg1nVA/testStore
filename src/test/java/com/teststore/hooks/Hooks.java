@@ -4,6 +4,7 @@ import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import com.teststore.config.Config;
+import com.teststore.utils.DriverManager;
 import com.teststore.utils.Storage;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -19,6 +20,7 @@ public class Hooks {
     public void setup(Scenario scenario) {
         SelenideLogger.addListener("AllureSelenide",
                 new AllureSelenide().screenshots(true).savePageSource(true));
+        DriverManager.setupDriver();
         Configuration.browser = Config.getBrowser();
         Configuration.timeout = Long.parseLong(Config.getTimeOut());
         Configuration.headless = Config.isHeadless();
