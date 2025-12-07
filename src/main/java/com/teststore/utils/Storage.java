@@ -16,7 +16,6 @@ public class Storage {
         storage.put(key, value);
     }
 
-    @SuppressWarnings("unchecked") // имеется контроль через метод put
     public static <T> T get(String key) {
         T value = (T) storage.get(key);
 

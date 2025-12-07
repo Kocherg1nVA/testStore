@@ -1,4 +1,4 @@
-package com.teststore.steps;
+package com.teststore.steps.UI;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
@@ -9,12 +9,13 @@ import com.codeborne.selenide.SelenideElement;
 import com.teststore.config.Config;
 import com.teststore.pages.AbstractPage;
 import com.teststore.pages.PageFactory;
+import com.teststore.steps.AbstractSteps;
 import io.cucumber.java.ru.Дано;
 import io.cucumber.java.ru.И;
 
 import java.time.Duration;
 
-public class BrowserSteps extends AbstractSteps{
+public class BrowserSteps extends AbstractSteps {
     AbstractPage currentPage;
 
     @Дано("Открыть домашнюю страницу")

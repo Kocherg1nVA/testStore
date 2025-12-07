@@ -1,5 +1,6 @@
-package com.teststore.steps;
+package com.teststore.steps.UI;
 
+import com.teststore.steps.AbstractSteps;
 import io.cucumber.java.ru.И;
 import org.openqa.selenium.By;
 

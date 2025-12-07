@@ -1,10 +1,10 @@
-package com.teststore.steps;
+package com.teststore.steps.UI;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.teststore.pages.AbstractPage;
 import com.teststore.pages.PageFactory;
+import com.teststore.steps.AbstractSteps;
 import com.teststore.utils.Storage;
 import io.cucumber.java.ru.И;
 

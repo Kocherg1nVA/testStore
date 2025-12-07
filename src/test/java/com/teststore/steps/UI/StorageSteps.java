@@ -1,5 +1,6 @@
-package com.teststore.steps;
+package com.teststore.steps.UI;
 
+import com.teststore.steps.AbstractSteps;
 import com.teststore.utils.Storage;
 import io.cucumber.java.ru.Дано;
 import io.cucumber.java.ru.И;
@@ -9,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
-public class StorageSteps extends AbstractSteps{
+public class StorageSteps extends AbstractSteps {
 
     @Дано("инициализация тестовых данных")
     @И("инициализировать тестовые данные")

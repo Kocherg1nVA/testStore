@@ -1,4 +1,4 @@
-package com.teststore.steps;
+package com.teststore.steps.UI;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
@@ -6,6 +6,7 @@ import com.codeborne.selenide.ex.ElementNotFound;
 import com.teststore.model.BackgroundColors;
 import com.teststore.pages.AbstractPage;
 import com.teststore.pages.PageFactory;
+import com.teststore.steps.AbstractSteps;
 import io.cucumber.java.ru.И;
 import org.openqa.selenium.By;
 

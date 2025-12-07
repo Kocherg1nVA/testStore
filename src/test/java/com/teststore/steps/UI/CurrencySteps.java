@@ -1,7 +1,8 @@
-package com.teststore.steps;
+package com.teststore.steps.UI;
 
 import com.codeborne.selenide.Condition;
 import com.teststore.model.Currency;
+import com.teststore.steps.AbstractSteps;
 import io.cucumber.java.ru.И;
 
 import static com.codeborne.selenide.Selectors.byXpath;

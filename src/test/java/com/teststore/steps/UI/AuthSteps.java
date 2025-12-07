@@ -1,10 +1,11 @@
-package com.teststore.steps;
+package com.teststore.steps.UI;
 
 import com.codeborne.selenide.Selenide;
 import com.teststore.config.Config;
 import com.teststore.pages.LoginPage;
 import com.teststore.pages.MyAccountPage;
 import com.teststore.pages.PageFactory;
+import com.teststore.steps.AbstractSteps;
 import io.cucumber.java.ru.И;
 
 public class AuthSteps extends AbstractSteps {

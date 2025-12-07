@@ -12,15 +12,53 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <java.version>1.8</java.version>
+    <java.version>17</java.version>
     <selenide.version>6.12.3</selenide.version>
     <cucumber.version>6.10.4</cucumber.version>
     <allure.version>2.13.9</allure.version>
     <junit.version>5.7.2</junit.version>
     <aspectj.version>1.9.19</aspectj.version>
+    <citrus>4.8.2</citrus>
+    <jackson>2.20.1</jackson>
   </properties>
 
   <dependencies>
+    <!-- Jackson JAXRS: JSON -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.jaxrs</groupId>
+      <artifactId>jackson-jaxrs-json-provider</artifactId>
+      <version>${jackson}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${jackson}</version>
+    </dependency>
+
+    <!-- Citrus framework -->
+      <dependency>
+          <groupId>org.citrusframework</groupId>
+          <artifactId>citrus-spring</artifactId>
+          <version>${citrus}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.citrusframework</groupId>
+          <artifactId>citrus-http</artifactId>
+          <version>${citrus}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.citrusframework</groupId>
+          <artifactId>citrus-validation-json</artifactId>
+          <version>${citrus}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.citrusframework</groupId>
+          <artifactId>citrus-cucumber</artifactId>
+          <version>${citrus}</version>
+          <scope>test</scope>
+      </dependency>
+
     <!-- Selenide (включает WebDriverManager и Selenium) -->
     <dependency>
       <groupId>com.codeborne</groupId>
@@ -37,6 +75,12 @@
     <dependency>
       <groupId>io.cucumber</groupId>
       <artifactId>cucumber-junit</artifactId>
+      <version>${cucumber.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-spring</artifactId>
       <version>${cucumber.version}</version>
       <scope>test</scope>
     </dependency>
