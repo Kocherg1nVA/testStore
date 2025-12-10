@@ -19,6 +19,7 @@ public class SimpleApiTest {
     public void testGetRequest() {
         apiUtils.sendGetRequest("/v1/disk/");
         apiUtils.getResponse();
+//        apiUtils.getResponseStatusCode();
     }
 
 //    @Test

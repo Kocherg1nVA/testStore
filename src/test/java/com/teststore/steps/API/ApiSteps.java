@@ -3,6 +3,7 @@ package com.teststore.steps.API;
 import com.teststore.Config.CitrusConfig;
 import com.teststore.steps.AbstractSteps;
 import io.cucumber.java.ru.И;
+import org.junit.Assert;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -61,6 +62,23 @@ public class ApiSteps extends AbstractSteps {
     public void getResponse() {
         apiUtils.getResponse();
         LOGGER.info("Ответ сервера получен");
+    }
+
+    @И(value = "^json запрос > проверить, что в ответе пришел код (\\d+)$")
+    public void checkResponseStatusCode (int expectedCode) {
+        int actualCode = apiUtils.getResponseStatusCode();
+        Assert.assertEquals("Код ответа сервера не соответствует ожидаемому", expectedCode, actualCode);
+        LOGGER.info("Код ответа сервера '{}' соответствует ожидаемому: '{}'", actualCode, expectedCode);
+    }
+
+    @И(value = "^json запрос > добавить тело запроса:$")
+    public void addRequestBody(String requestBody) {
+        apiUtils.addBodyFromString(requestBody);
+    }
+
+    @И(value = "json запрос > создать запрос по шаблону \"(.+)\"$")
+    public void createRequestByTemplate(String templatePath) {
+
     }
 
 }

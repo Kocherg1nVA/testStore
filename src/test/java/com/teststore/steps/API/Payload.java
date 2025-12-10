@@ -5,11 +5,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
 @Component
-@Scope("cucumber-glue")
+//@Scope("cucumber-glue")
 public class Payload {
     private String payload = "";
     private final ObjectMapper mapper = new ObjectMapper();
@@ -25,18 +28,26 @@ public class Payload {
      */
     public void createFromTemplate(String templatePath, Map<String, String> variables) {
         try {
-            Map<String, Object> jsonMap = new HashMap<>();
-            if (templatePath != null && !templatePath.isEmpty()) {
-                jsonMap = mapper.readValue(templatePath, Map.class);
+            String templateContent = new String(Files.readAllBytes(Paths.get(templatePath)));
+            Map<String, Object> jsonMap = mapper.readValue(templateContent, Map.class);
+            if (variables != null && !variables.isEmpty()) {
+                jsonMap.putAll(variables);
             }
+//            Map<String, Object> jsonMap = new HashMap<>();
+//            if (templatePath != null && !templatePath.isEmpty()) {
+//                jsonMap = mapper.readValue(templatePath, Map.class);
+//            }
 //            for (Map.Entry<String, String> entry : variables.entrySet()) {
 //                jsonMap.put(entry.getKey(), entry.getValue());
 //            }
-            jsonMap.putAll(variables);
             this.payload = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonMap);
-        } catch (JsonProcessingException e) {
+        } catch (IOException e) {
             throw new RuntimeException("Ошибка создания JSON", e);
         }
+    }
+
+    public void createFromTemplate(String templatePath) {
+        createFromTemplate(templatePath, null);
     }
 
     /**
