@@ -7,7 +7,6 @@ import org.citrusframework.context.TestContext;
 import org.citrusframework.context.TestContextFactory;
 import org.citrusframework.http.client.HttpClient;
 import org.citrusframework.http.message.HttpMessageHeaders;
-import org.citrusframework.validation.json.JsonPathVariableExtractor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
@@ -35,6 +34,9 @@ public class ApiUtils {
 
     @Autowired
     private Payload payload;
+
+    @Autowired
+    private ResponseMsg responseMsg;
 
     private TestCaseRunner runner;
 
@@ -72,7 +74,7 @@ public class ApiUtils {
 
     public void addBodyFromTemplate(String templatePath) {
         payload.clearPayload();
-        payload.createFromTemplate(templatePath);
+        payload.createFromTemplate("src/test/resources/" + templatePath);
         this.body = payload.getPayload();
     }
 
@@ -87,7 +89,7 @@ public class ApiUtils {
                 .headers(headers)
                 .body(body)
         );
-        System.out.println("Тело запроса: \n" + context.getMessageStore().getMessage("request").getPayload());
+
     }
 
     public void sendPostRequest(String endpoint) {
@@ -97,8 +99,7 @@ public class ApiUtils {
                 .post(endpoint)
                 .message()
                 .headers(headers)
-                .body(body)
-        );
+                .body(body));
     }
 
     public void sendPatchRequest(String endpoint) {
@@ -120,36 +121,23 @@ public class ApiUtils {
     }
 
     public String getResponse() {
-        Map<String, Object> expressions = new HashMap<>();
-        expressions.put("$", "responseBody");
-        JsonPathVariableExtractor extractor = new JsonPathVariableExtractor.Builder()
-                .expressions(expressions)
-                        .build();
-
         runner.run(http()
                 .client(yandexClient)
                 .receive()
                 .response()
-                .name(responseName)
                 .message()
-                .name("messageName")
-                .extract(extractor));
+                .name(responseName));
 
-        Map<String, Object> headers = context.getMessageStore().getMessage("messageName").getHeaders();
-        System.out.println("===== HEADERS ======");
-        System.out.println(headers);
-        System.out.println("===== END ======");
-
-        String response = context.getVariable("responseBody");
-        System.out.println("===== ОТВЕТ =====");
-        System.out.println(response);
-        System.out.println("===== КОНЕЦ =====");
-        return response;
+        String responseBody = (String) context.getMessageStore().getMessage(responseName).getPayload();
+        responseMsg = new ResponseMsg(responseBody);
+        return responseBody;
     }
 
     public int getResponseStatusCode() {
-        int statusCode = (Integer) context.getMessageStore().getMessage("messageName").getHeader(HttpMessageHeaders.HTTP_STATUS_CODE);
-        System.out.println("Статус код ответа: " + statusCode);
-        return statusCode;
+        return (int) (Integer) context.getMessageStore().getMessage(responseName).getHeader(HttpMessageHeaders.HTTP_STATUS_CODE);
+    }
+
+    public String getResponseHeaders() {
+        return context.getMessageStore().getMessage(responseName).getHeaders().toString();
     }
 }
