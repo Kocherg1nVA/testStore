@@ -35,7 +35,7 @@ public class ApiSteps extends AbstractSteps {
         LOGGER.info("Добавлен заголовок с токеном авторизации");
     }
 
-    @И(value = "^json запрос > отправить (GET|POST|PATCH|DELETE) запрос по пути \"(.+)\"$")
+    @И(value = "^json запрос > отправить (GET|POST|PUT|PATCH|DELETE) запрос по пути \"(.+)\"$")
     public void sendJsonRequest(String httpMethod, String endpoint) {
         switch (httpMethod) {
             case "GET":
@@ -45,6 +45,10 @@ public class ApiSteps extends AbstractSteps {
             case "POST":
                 LOGGER.debug("Отправляется POST запрос по пути {}", endpoint);
                 apiUtils.sendPostRequest(endpoint);
+                break;
+            case "PUT":
+                LOGGER.debug("Отправляется PUT запрос по пути {}", endpoint);
+                apiUtils.sendPutRequest(endpoint);
                 break;
             case "PATCH":
                 LOGGER.debug("Отправляется PATCH запрос по пути {}", endpoint);
@@ -56,13 +60,17 @@ public class ApiSteps extends AbstractSteps {
             default:
                 throw new IllegalArgumentException("Неподдерживаемый тип запроса: " + httpMethod);
         }
-        LOGGER.info("Успешно! Запрос отправлен");
+        String url = apiUtils.getRequestFullUri(endpoint);
+        String headers = apiUtils.getRequestHeaders();
+        String body = apiUtils.getRequestBody();
+        LOGGER.info("Успешно! Запрос {} отправлен:\n{}\n{}\n{}",headers, httpMethod, url, body);
     }
 
     @И(value = "^json запрос > получить ответ$")
     public void getResponse() {
         apiUtils.getResponse();
-        LOGGER.info("Успешно! Ответ сервера получен");
+        String body = apiUtils.getResponseBody();
+        LOGGER.info("Успешно! Ответ сервера получен:\n{}", body);
     }
 
     @И(value = "^json запрос > проверить, что в ответе пришел код (\\d+)$")

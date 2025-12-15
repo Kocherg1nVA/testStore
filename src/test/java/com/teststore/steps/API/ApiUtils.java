@@ -43,6 +43,7 @@ public class ApiUtils {
     private Map<String, Object> headers = new HashMap<>();
     private Map<String, String> queryParams = new HashMap<>();
     private String body;
+    private String requestName = "ЗАПРОС";
     private String responseName = "ОТВЕТ";
 
     @PostConstruct
@@ -85,11 +86,9 @@ public class ApiUtils {
                 .send()
                 .get(endpoint)
                 .message()
-                        .name("request")
+                .name(requestName)
                 .headers(headers)
-                .body(body)
-        );
-
+                .body(body));
     }
 
     public void sendPostRequest(String endpoint) {
@@ -98,6 +97,18 @@ public class ApiUtils {
                 .send()
                 .post(endpoint)
                 .message()
+                .name(requestName)
+                .headers(headers)
+                .body(body));
+    }
+
+    public void sendPutRequest(String endpoint) {
+        runner.run(http()
+                .client(yandexClient)
+                .send()
+                .put(endpoint)
+                .message()
+                .name(requestName)
                 .headers(headers)
                 .body(body));
     }
@@ -108,7 +119,9 @@ public class ApiUtils {
                 .send()
                 .patch(endpoint)
                 .message()
-                .headers(headers));
+                .name(requestName)
+                .headers(headers)
+                .body(body));
     }
 
     public void sendDeleteRequest(String endpoint) {
@@ -116,11 +129,14 @@ public class ApiUtils {
                 .client(yandexClient)
                 .send()
                 .delete(endpoint)
+                .name(requestName)
                 .message()
-                .headers(headers));
+                .name(requestName)
+                .headers(headers)
+                .body(body));
     }
 
-    public String getResponse() {
+    public void getResponse() {
         runner.run(http()
                 .client(yandexClient)
                 .receive()
@@ -128,9 +144,20 @@ public class ApiUtils {
                 .message()
                 .name(responseName));
 
-        String responseBody = (String) context.getMessageStore().getMessage(responseName).getPayload();
+        String responseBody = getResponseBody();
         responseMsg = new ResponseMsg(responseBody);
-        return responseBody;
+    }
+
+    public String getRequestBody() {
+        return context.getMessageStore().getMessage(requestName).getPayload().toString();
+    }
+
+    public String getResponseBody() {
+        return (String) context.getMessageStore().getMessage(responseName).getPayload();
+    }
+
+    public String getRequestFullUri(String endpoint) {
+        return yandexClient.getEndpointConfiguration().getRequestUrl() + endpoint;
     }
 
     public int getResponseStatusCode() {
@@ -139,5 +166,8 @@ public class ApiUtils {
 
     public String getResponseHeaders() {
         return context.getMessageStore().getMessage(responseName).getHeaders().toString();
+    }
+    public String getRequestHeaders() {
+        return context.getMessageStore().getMessage(requestName).getHeaders().toString();
     }
 }
