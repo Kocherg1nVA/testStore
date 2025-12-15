@@ -18,10 +18,26 @@ public class CitrusConfig {
     @Value("${api.auth.token.yandex}")
     private String authTokenYandex;
 
+    @Value("${api.base.url.booker}")
+    private String apiBaseUrlBooker;
+
+    @Value("${api.auth.token.booker}")
+    private String authTokenBooker;
+
     @Bean(name = "yandexClient")
     public HttpClient yandexClient() {
         return new HttpClientBuilder()
                 .requestUrl(apiBaseUrlYandex)
+                .contentType("application/json")
+                .charset("UTF-8")
+                .timeout(60_000L)
+                .build();
+    }
+
+    @Bean(name = "restfulBooker")
+    public HttpClient booker() {
+        return new HttpClientBuilder()
+                .requestUrl(apiBaseUrlBooker)
                 .contentType("application/json")
                 .charset("UTF-8")
                 .timeout(60_000L)
@@ -41,6 +57,11 @@ public class CitrusConfig {
     @Bean
     public String getAuthTokenYandex() {
         return  authTokenYandex;
+    }
+
+    @Bean
+    public String getAuthTokenBooker() {
+        return authTokenBooker;
     }
 
 }
