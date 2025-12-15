@@ -1,5 +1,6 @@
 package com.teststore.Config;
 
+import com.teststore.utils.Stand;
 import org.citrusframework.context.TestContext;
 import org.citrusframework.context.TestContextFactory;
 import org.citrusframework.http.client.HttpClient;
@@ -12,32 +13,32 @@ import org.springframework.context.annotation.*;
 @ComponentScan(basePackages = "com.teststore")
 public class CitrusConfig {
 
-    @Value("${api.base.url.yandex}")
-    private String apiBaseUrlYandex;
+//    @Value("${api.base.url.yandex}")
+//    private String apiBaseUrlYandex;
 
-    @Value("${api.auth.token.yandex}")
-    private String authTokenYandex;
+//    @Value("${api.auth.token.yandex}")
+//    private String authTokenYandex;
 
-    @Value("${api.base.url.booker}")
-    private String apiBaseUrlBooker;
+//    @Value("${api.base.url.booker}")
+//    private String apiBaseUrlBooker;
 
-    @Value("${api.auth.token.booker}")
-    private String authTokenBooker;
+//    @Value("${api.auth.token.booker}")
+//    private String authTokenBooker;
 
     @Bean(name = "yandexClient")
     public HttpClient yandexClient() {
         return new HttpClientBuilder()
-                .requestUrl(apiBaseUrlYandex)
+                .requestUrl(Stand.YANDEX)
                 .contentType("application/json")
                 .charset("UTF-8")
                 .timeout(60_000L)
                 .build();
     }
 
-    @Bean(name = "restfulBooker")
+    @Bean(name = "bookerClient")
     public HttpClient booker() {
         return new HttpClientBuilder()
-                .requestUrl(apiBaseUrlBooker)
+                .requestUrl(Stand.BOOKER)
                 .contentType("application/json")
                 .charset("UTF-8")
                 .timeout(60_000L)
@@ -54,14 +55,14 @@ public class CitrusConfig {
         return testContextFactory().getObject();
     }
 
-    @Bean
-    public String getAuthTokenYandex() {
-        return  authTokenYandex;
-    }
-
-    @Bean
-    public String getAuthTokenBooker() {
-        return authTokenBooker;
-    }
+//    @Bean
+//    public String getAuthTokenYandex() {
+//        return  authTokenYandex;
+//    }
+//
+//    @Bean
+//    public String getAuthTokenBooker() {
+//        return authTokenBooker;
+//    }
 
 }

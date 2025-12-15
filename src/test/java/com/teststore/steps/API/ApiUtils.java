@@ -1,5 +1,7 @@
 package com.teststore.steps.API;
 
+import com.teststore.utils.ApiClientRouter;
+import com.teststore.utils.Stand;
 import jakarta.annotation.PostConstruct;
 import org.citrusframework.DefaultTestCaseRunner;
 import org.citrusframework.TestCaseRunner;
@@ -24,7 +26,10 @@ public class ApiUtils {
     private HttpClient yandexClient;
 
     @Autowired
-    private String authTokenYandex;
+    private HttpClient bookerClient;
+
+//    @Autowired
+//    private String authTokenYandex;
 
     @Autowired
     private TestContextFactory factory;
@@ -43,8 +48,9 @@ public class ApiUtils {
     private Map<String, Object> headers = new HashMap<>();
     private Map<String, String> queryParams = new HashMap<>();
     private String body;
-    private String requestName = "ЗАПРОС";
-    private String responseName = "ОТВЕТ";
+    private final String requestName = "ЗАПРОС";
+    private final String responseName = "ОТВЕТ";
+    private HttpClient finalClient;
 
     @PostConstruct
     public void init() {
@@ -81,8 +87,9 @@ public class ApiUtils {
 
 
     public void sendGetRequest(String endpoint) {
+        chooseClient(endpoint);
         runner.run(http()
-                .client(yandexClient)
+                .client(finalClient)
                 .send()
                 .get(endpoint)
                 .message()
@@ -92,8 +99,9 @@ public class ApiUtils {
     }
 
     public void sendPostRequest(String endpoint) {
+        chooseClient(endpoint);
         runner.run(http()
-                .client(yandexClient)
+                .client(finalClient)
                 .send()
                 .post(endpoint)
                 .message()
@@ -103,8 +111,9 @@ public class ApiUtils {
     }
 
     public void sendPutRequest(String endpoint) {
+        chooseClient(endpoint);
         runner.run(http()
-                .client(yandexClient)
+                .client(finalClient)
                 .send()
                 .put(endpoint)
                 .message()
@@ -114,8 +123,9 @@ public class ApiUtils {
     }
 
     public void sendPatchRequest(String endpoint) {
+        chooseClient(endpoint);
         runner.run(http()
-                .client(yandexClient)
+                .client(finalClient)
                 .send()
                 .patch(endpoint)
                 .message()
@@ -125,8 +135,9 @@ public class ApiUtils {
     }
 
     public void sendDeleteRequest(String endpoint) {
+        chooseClient(endpoint);
         runner.run(http()
-                .client(yandexClient)
+                .client(finalClient)
                 .send()
                 .delete(endpoint)
                 .name(requestName)
@@ -138,7 +149,7 @@ public class ApiUtils {
 
     public void getResponse() {
         runner.run(http()
-                .client(yandexClient)
+                .client(finalClient)
                 .receive()
                 .response()
                 .message()
@@ -157,7 +168,7 @@ public class ApiUtils {
     }
 
     public String getRequestFullUri(String endpoint) {
-        return yandexClient.getEndpointConfiguration().getRequestUrl() + endpoint;
+        return finalClient.getEndpointConfiguration().getRequestUrl() + endpoint;
     }
 
     public int getResponseStatusCode() {
@@ -169,5 +180,13 @@ public class ApiUtils {
     }
     public String getRequestHeaders() {
         return context.getMessageStore().getMessage(requestName).getHeaders().toString();
+    }
+
+    private void chooseClient(String endpoint) {
+        String client = ApiClientRouter.hostPath(endpoint);
+        assert client != null;
+        if (client.equals(Stand.YANDEX)) {
+            finalClient = yandexClient;
+        } else finalClient = bookerClient;
     }
 }

@@ -63,7 +63,7 @@ public class ApiSteps extends AbstractSteps {
         String url = apiUtils.getRequestFullUri(endpoint);
         String headers = apiUtils.getRequestHeaders();
         String body = apiUtils.getRequestBody();
-        LOGGER.info("Успешно! Запрос {} отправлен:\n{}\n{}\n{}",headers, httpMethod, url, body);
+        LOGGER.info("Успешно! {} запрос отправлен:\n{}\n{}\n{}", httpMethod, url, headers, body);
     }
 
     @И(value = "^json запрос > получить ответ$")

@@ -50,8 +50,16 @@ public class Config {
     public static boolean isHeadless() {
         return Boolean.parseBoolean(PROPERTIES.getProperty("selenide.headless", "false"));
     }
-    public static String getApiBaseUrl() { return PROPERTIES.getProperty("api.base.url.yandex"); }
+    public static String getYandexApiBaseUrl() { return PROPERTIES.getProperty("api.base.url.yandex"); }
 
     public static String getYandexAuthToken() { return PROPERTIES.getProperty("api.auth.token.yandex"); }
+
+    public static String getBookerApiBaseUrl() {
+        return PROPERTIES.getProperty("api.base.url.booker");
+    }
+
+    public static String getBookerAuthToken() {
+        return PROPERTIES.getProperty("api.auth.token.booker");
+    }
 
 }
