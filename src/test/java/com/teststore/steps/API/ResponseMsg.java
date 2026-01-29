@@ -92,4 +92,9 @@ public class ResponseMsg {
     public boolean isHasField(String field) {
         return jsonNode != null && jsonNode.has(field);
     }
+
+    public String getResponse(){
+        return response;
+    }
 }
+

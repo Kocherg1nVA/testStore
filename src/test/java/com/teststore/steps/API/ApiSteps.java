@@ -73,6 +73,13 @@ public class ApiSteps extends AbstractSteps {
         LOGGER.info("Успешно! Ответ сервера получен:\n{}", body);
     }
 
+    @И(value = "^json запрос > сохранить тело ответа в Хранилище как \"(.+)\"")
+    public void saveResponseBodyAs(String storageKey) {
+        String body = apiUtils.getResponseMsg();
+        Storage.put(storageKey, body);
+        LOGGER.info("Успешно! Тело ответа: \n'{}' \nсохранено в хранилище как: '{}'",body, storageKey);
+    }
+
     @И(value = "^json запрос > проверить, что в ответе пришел код (\\d+)$")
     public void checkResponseStatusCode (int expectedCode) {
         int actualCode = apiUtils.getResponseStatusCode();
